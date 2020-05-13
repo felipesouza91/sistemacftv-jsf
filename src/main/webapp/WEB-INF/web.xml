@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+	<display-name>CftvWeb</display-name>
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
+	<filter>
+		<filter-name>Encoding Filter</filter-name>
+		<filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>Encoding Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+
+	<context-param>
+		<description>State saving method: 'client' or 'server' (=default). See JSF Specification 2.5.2</description>
+		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+		<param-value>client</param-value>
+	</context-param>
+
+
+	<context-param>
+		<param-name>javax.servlet.jsp.jstl.fmt.localizationContext</param-name>
+		<param-value>resources.application</param-value>
+	</context-param>
+
+
+	<welcome-file-list>
+		<welcome-file>Home.xhtml</welcome-file>
+	</welcome-file-list>
+
+	<login-config>
+		<auth-method>FORM</auth-method>
+		<form-login-config>
+			<form-login-page>/Login.xhtml</form-login-page>
+			<form-error-page>/Login.xhtml</form-error-page>
+
+		</form-login-config>
+	</login-config>
+
+	<security-role>
+		<role-name>USUARIO</role-name>
+	</security-role>
+
+	<security-role>
+		<role-name>SUPERVISOR</role-name>
+	</security-role>
+
+	<security-role>
+		<role-name>ADMINISTRADOR</role-name>
+	</security-role>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Administrador rule</web-resource-name>
+			<url-pattern>/Home.xhtml</url-pattern>
+			<url-pattern>/CadastroCliente.xhtml</url-pattern>
+			<url-pattern>/CadastroOrdemServico.xhtml</url-pattern>
+			<url-pattern>/CadastroSistemaDeCameras.xhtml</url-pattern>
+			<url-pattern>/CadastroUsuario.xhtml</url-pattern>
+			<url-pattern>/ConsultaCliente.xhtml</url-pattern>
+			<url-pattern>/ConsultaOs.xhtml</url-pattern>
+			<url-pattern>/ConsultaSistema.xhtml</url-pattern>
+			<url-pattern>/ConsultaUsuario.xhtml</url-pattern>
+			<url-pattern>/MotivoOs.xhtml</url-pattern>
+			<url-pattern>/VerificaGravacao.xhtml</url-pattern>
+			<url-pattern>/ConsultaTeste.xhtml</url-pattern>
+			<url-pattern>/BootStrap</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>ADMINISTRADOR</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Supervior Rule</web-resource-name>
+			<url-pattern>/Home.xhtml</url-pattern>
+			<url-pattern>/CadastroCliente.xhtml</url-pattern>
+			<url-pattern>/CadastroOrdemServico.xhtml</url-pattern>
+			<url-pattern>/CadastroSistemaDeCameras.xhtml</url-pattern>
+			<url-pattern>/ConsultaCliente.xhtml</url-pattern>
+			<url-pattern>/ConsultaOs.xhtml</url-pattern>
+			<url-pattern>/ConsultaSistema.xhtml</url-pattern>
+			<url-pattern>/MotivoOs.xhtml</url-pattern>
+			<url-pattern>/403.xhtml</url-pattern>
+			<url-pattern>/VerificaGravacao.xhtml</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>SUPERVISOR</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Usuario Rule</web-resource-name>
+			<url-pattern>/Home.xhtml</url-pattern>
+			<url-pattern>/ConsultaCliente.xhtml</url-pattern>
+			<url-pattern>/ConsultaOs.xhtml</url-pattern>
+			<url-pattern>/ConsultaSistema.xhtml</url-pattern>
+			<url-pattern>/403.xhtml</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>USUARIO</role-name>
+		</auth-constraint>
+	</security-constraint>
+
+	<error-page>
+		<error-code>403</error-code>
+		<location>/403.xhtml</location>
+	</error-page>
+
+	<mime-mapping>
+		<extension>eot</extension>
+		<mime-type>application/vnd.ms-fontobject</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>otf</extension>
+		<mime-type>font/opentype</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>svg</extension>
+		<mime-type>image/svg+xml</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>ttf</extension>
+		<mime-type>application/x-font-ttf</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>woff</extension>
+		<mime-type>application/x-font-woff</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>woff2</extension>
+		<mime-type>application/x-font-woff2</mime-type>
+	</mime-mapping>
+
+
+</web-app>

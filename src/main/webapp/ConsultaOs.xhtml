@@ -1,0 +1,195 @@
+<ui:composition
+  template="/template/LayoutPadrao.xhtml"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+>
+  <f:metadata>
+    <f:viewParam name="codigoCliente" value="#{consultaOsBean.cliente}" />
+  </f:metadata>
+
+  <ui:define name="titulo">Consulta Os</ui:define>
+
+  <ui:define name="conteudo">
+    <h:outputStylesheet library="css" name="consulta.css" />
+    <h:form id="consultaOs">
+      <h:messages
+        showSummary="true"
+        showDetail="false"
+        styleClass="form-messages"
+        errorClass="error"
+        infoClass="info"
+      />
+
+      <h:outputLabel value="Cliente" />
+      <h:outputText value="#{consultaOsBean.cliente.fantazia}" />
+
+      <h:panelGrid columns="2" id="panelBusca">
+        <h:outputLabel value="Pesquisa por:"></h:outputLabel>
+        <h:outputLabel />
+
+        <h:selectOneMenu
+          value="#{consultaOsBean.tipoPequisa}"
+          id="tipoPesquisa"
+          immediate="true"
+          valueChangeListener="#{consultaOsBean.modificaPesquisaDescricao}"
+          onchange="jsf.ajax.request(this, event, {execute: '@form', render:'consultaOs:panelBusca'})"
+        >
+          <f:selectItem itemLabel="Todos" itemValue="0"></f:selectItem>
+          <f:selectItem itemLabel="Razão Social" itemValue="1"></f:selectItem>
+          <f:selectItem
+            itemLabel="Codigo Os Service"
+            itemValue="8"
+          ></f:selectItem>
+          <f:selectItem itemLabel="Nome Fantazia" itemValue="2"></f:selectItem>
+          <f:selectItem itemLabel="Bairro" itemValue="3"></f:selectItem>
+          <f:selectItem itemLabel="Endereço" itemValue="4"></f:selectItem>
+          <f:selectItem itemLabel="Data" itemValue="5"></f:selectItem>
+          <f:selectItem
+            itemLabel="Nivel de Prioridade"
+            itemValue="6"
+          ></f:selectItem>
+          <f:selectItem itemLabel="Motivo da Os" itemValue="7"></f:selectItem>
+        </h:selectOneMenu>
+        <h:panelGroup>
+          <h:inputText
+            id="descricaoPesquisa"
+            size="40"
+            value="#{consultaOsBean.descricaoPesquisa}"
+            rendered="#{consultaOsBean.render}"
+          >
+          </h:inputText>
+          <h:inputText
+            id="descricaoData"
+            value="#{consultaOsBean.dataPesquisa}"
+            rendered="#{consultaOsBean.renderData}"
+            converter="com.felipe.converter.dataHtml5"
+            required="true"
+          >
+            <f:passThroughAttribute name="type" value="date" />
+          </h:inputText>
+          <h:selectOneMenu
+            id="prioridade"
+            value="#{consultaOsBean.descricaoPesquisa}"
+            rendered="#{consultaOsBean.renderPrioridade}"
+          >
+            <f:selectItems
+              var="prioridade"
+              value="#{consultaOsBean.prioridadeOs}"
+              itemValue="#{prioridade}"
+              itemLabel="#{prioridade.descricao}"
+            />
+          </h:selectOneMenu>
+          <h:selectOneMenu
+            id="motivoOs"
+            value="#{consultaOsBean.motivoOs}"
+            rendered="#{consultaOsBean.renderMotivoOs}"
+          >
+            <f:selectItems
+              var="motivoOs"
+              value="#{consultaOsBean.listMotivoOs}"
+              itemValue="#{motivoOs}"
+              itemLabel="#{motivoOs.descricao}"
+            />
+          </h:selectOneMenu>
+          <h:commandButton
+            value="Pesquisar"
+            action="#{consultaOsBean.pesquisar}"
+          />
+        </h:panelGroup>
+      </h:panelGrid>
+
+      <h:dataTable
+        value="#{consultaOsBean.listOs}"
+        var="os"
+        width="100%"
+        styleClass="grid"
+        headerClass="cabecalho"
+        rowClasses="cor-sim, cor-nao"
+        columnClasses="tipo, tipo, tipo, tipo, tipo, tipo, tipo, tipo, tipo, tipo1"
+      >
+        <h:column>
+          <f:facet name="header">Codigo</f:facet>
+          <h:outputText value="#{os.id}" />
+        </h:column>
+
+        <h:column>
+          <f:facet name="header">Codigo de Ordem Serivce</f:facet>
+          <h:outputText value="#{os.codigoService}" />
+        </h:column>
+
+        <h:column>
+          <f:facet name="header">Codigo Service</f:facet>
+          <h:outputText value="#{os.cliente.codigoService}" />
+        </h:column>
+
+        <h:column>
+          <f:facet name="header">Nome Fanazia</f:facet>
+          <h:outputText value="#{os.cliente.fantazia}" />
+        </h:column>
+
+        <h:column>
+          <f:facet name="header">Motivo</f:facet>
+          <h:outputText value="#{os.motivoOs.descricao}" />
+        </h:column>
+
+        <h:column>
+          <f:facet name="header">Solicitante</f:facet>
+          <h:outputText value="#{os.solicitante}" />
+        </h:column>
+        <h:column>
+          <f:facet name="header">Nivel OS</f:facet>
+          <h:outputText value="${os.prioridadeOs}" />
+        </h:column>
+
+        <h:column>
+          <f:facet name="header">Descrição</f:facet>
+          <h:outputText value="#{os.descricao}" />
+        </h:column>
+
+        <h:column>
+          <f:facet name="header">Data da Abertura</f:facet>
+          <h:outputText
+            value="#{os.dataAbertura}"
+            converter="com.felipe.converter.dataConverter"
+          />
+        </h:column>
+
+        <h:column>
+          <h:link outcome="CadastroOrdemServico" title="Edição de Os">
+            <h:graphicImage value="/imagens/editar.png" />
+            <f:param name="codigoOs" value="#{os.id}" />
+            <f:param name="codigoCliente" value="#{os.cliente.id}" />
+          </h:link>
+          <h:commandLink
+            action="#{consultaOsBean.excluir}"
+            rendered="#{request.isUserInRole('ADMINISTRADOR')}"
+          >
+            <h:graphicImage value="/imagens/excluir.png" />
+            <f:setPropertyActionListener
+              value="#{os}"
+              target="#{consultaClienteBean.osExcluir}"
+            />
+          </h:commandLink>
+
+          <h:link
+            outcome="FechamentoOs"
+            title="Fechamento de Os"
+            rendered="#{empty os.fechamento}"
+          >
+            <h:graphicImage value="/imagens/fechamento.png" />
+            <f:param name="codigoOs" value="#{os.id}" />
+          </h:link>
+          <h:link
+            outcome="#"
+            title="Ordem já fechada"
+            rendered="#{not empty os.fechamento}"
+          >
+            <h:graphicImage value="/imagens/fechamentoOk.png" />
+          </h:link>
+        </h:column>
+      </h:dataTable>
+    </h:form>
+  </ui:define>
+</ui:composition>

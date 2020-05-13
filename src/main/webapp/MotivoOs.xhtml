@@ -1,0 +1,75 @@
+<ui:composition
+  template="/template/LayoutPadrao.xhtml"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+>
+  <ui:define name="titulo">Motivo de OS</ui:define>
+
+  <ui:define name="conteudo">
+    <h:outputStylesheet library="css" name="cadastro.css" />
+    <h:outputStylesheet library="css" name="consulta.css" />
+
+    <h:form>
+      <h1>Manutenção de Motivo de OS</h1>
+      <br /><br />
+      <h:messages
+        showSummary="true"
+        showDetail="false"
+        styleClass="form-messages"
+        errorClass="error"
+        infoClass="info"
+      />
+      <h:panelGrid columns="2" styleClass="form-grid">
+        <h:outputLabel value="Id" />
+        <h:panelGroup>
+          <h:inputText value="#{motivoOsBean.motivoOs.id}" />
+          <!-- rendered="#{motivoOsBean.motivoOs.id ? null: false}" -->
+          <h:outputLabel value="Novo cadastro" />
+          <!-- rendered="#{motivoOsBean.motivoOs.id ? null: true}"  -->
+        </h:panelGroup>
+
+        <h:outputLabel value="Descrição:" />
+        <h:inputText size="40" value="#{motivoOsBean.motivoOs.descricao}" />
+
+        <h:outputLabel />
+        <h:commandButton value="Cadastrar" action="#{motivoOsBean.salvar}" />
+      </h:panelGrid>
+
+      <br /><br />
+      <h:dataTable
+        value="#{motivoOsBean.listMotivoOs}"
+        var="motivo"
+        styleClass="grid"
+        headerClass="cabecalho"
+        rowClasses="cor-sim, cor-nao"
+        width="400px"
+        columnClasses="tipo, tipo,tipo"
+      >
+        <h:column>
+          <f:facet name="header">Codigo</f:facet>
+          <h:outputText value="#{motivo.id}" />
+        </h:column>
+
+        <h:column>
+          <f:facet name="header">Descrição</f:facet>
+          <h:outputText value="#{motivo.descricao}" />
+        </h:column>
+
+        <h:column>
+          <h:commandLink>
+            <h:graphicImage value="/imagens/editar.png" />
+          </h:commandLink>
+          <h:commandLink action="#{motivoOsBean.excluir}">
+            <h:graphicImage value="/imagens/excluir.png" />
+            <f:setPropertyActionListener
+              value="#{motivo}"
+              target="#{motivoOsBean.motivoSelecionado}"
+            />
+          </h:commandLink>
+        </h:column>
+      </h:dataTable>
+    </h:form>
+  </ui:define>
+</ui:composition>
