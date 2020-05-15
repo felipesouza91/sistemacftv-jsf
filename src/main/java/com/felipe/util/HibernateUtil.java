@@ -1,5 +1,7 @@
 package com.felipe.util;
 
+import java.util.Properties;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
@@ -10,7 +12,9 @@ import org.hibernate.SessionFactory;
 public class HibernateUtil {
 
 	public static EntityManager createEntityManager() {
-		return Persistence.createEntityManagerFactory("CFTV-PU").createEntityManager();
+		Properties properties = new Properties();
+		properties.setProperty("Teste", "logal");
+		return Persistence.createEntityManagerFactory("CFTV-PU", properties).createEntityManager();
 	}
 
 	public static SessionFactory sessionFactory;

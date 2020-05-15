@@ -1,7 +1,5 @@
 package com.felipe.model;
 
-import javax.persistence.Entity;
-
 public enum PrivilegioUsuario {
 
 	USUARIO("USUARIO"), SUPERVISOR("SUPERVISOR"), ADMINISTRADOR("ADMINISTRADOR");
