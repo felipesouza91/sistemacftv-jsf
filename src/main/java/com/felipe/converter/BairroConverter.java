@@ -21,7 +21,7 @@ public class BairroConverter implements Converter {
 		if (value != null) {
 			retorno = bairroDao.getPorCodigo(Integer.parseInt(value));
 		}
-
+		System.out.println("teste");
 		return retorno;
 	}
 

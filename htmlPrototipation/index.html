@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css"
+    />
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"
+    ></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div
+      class="hero is-fullheight"
+      style="background-color: rgba(0, 0, 0, 0.4);"
+    >
+      <div class="container" style="margin: 100px auto; padding: 10px;">
+        <div class="box">
+          <h1 class="title has-text-dark">
+            Login
+          </h1>
+          <div class="notification is-danger is-light ">  <!--is-hidden	-->
+            <span class="icon has-text-danger">
+              <i class="fas fa-exclamation-triangle"></i>
+            </span>
+            <button class="delete"></button>
+            Usuario ou senha invalido
+          </div>
+          </article>
+
+          <form>
+            <div class="field">
+              <p class="control has-icons-left has-icons-right">
+                <input class="input" type="text" placeholder="Usuário" />
+                <span class="icon is-small is-left">
+                  <i class="fas fa-envelope"></i>
+                </span>
+              </p>
+            </div>
+            <div class="field">
+              <p class="control has-icons-left">
+                <input class="input" type="password" placeholder="Senha" />
+                <span class="icon is-small is-left">
+                  <i class="fas fa-lock"></i>
+                </span>
+              </p>
+            </div>
+            <div class="field is-grouped is-grouped-right">
+              <button class="button is-success">
+                Login
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

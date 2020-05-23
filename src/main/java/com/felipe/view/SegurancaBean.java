@@ -23,7 +23,7 @@ public class SegurancaBean {
 			this.getRequest().login(nomeUsuario, senha);
 			return "Home?Faces-redirect=true";
 		} catch (ServletException e) {
-			FacesUtil.addMensagem(FacesMessage.SEVERITY_ERROR, "Usuário ou senha invalido!");
+			FacesUtil.addMensagem(FacesMessage.SEVERITY_ERROR, "Usuário ou senha invalido! Tenten novamente");
 			return null;
 		}
 	}
