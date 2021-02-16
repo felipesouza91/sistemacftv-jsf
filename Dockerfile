@@ -1,11 +1,15 @@
-FROM tomcat:8.5.55-jdk8-openjdk
-RUN MAVEN_VERSION=3.3.9 \
-  && cd /usr/share \
-  && wget http://ftp.unicamp.br/pub/apache/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz -O - | tar xzf - \
-  && mv /usr/share/apache-maven-$MAVEN_VERSION /usr/share/maven \
-  && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
+FROM maven:3.6.3-jdk-8-slim as BUILD
+WORKDIR /usr/app
+COPY pom.xml .
+RUN mvn dependency:resolve
+COPY ./src ./src
+RUN mvn install
 
-WORKDIR /home/app
-COPY . .
-RUN mvn -T 1C install \
-  && mv ./target/*.war $CATALINA_HOME/webapps
+
+FROM tomcat:8.5.55-jdk8-openjdk
+ENV JPDA_OPTS="-agentlib:jdwp=transport=dt_socket,address=8000,server=y,suspend=n"
+ENV JPDA_ADDRESS="8000"
+ENV JPDA_TRANSPORT="dt_socket"
+COPY --from=BUILD /root/.m2/repository/mysql/mysql-connector-java/6.0.6/mysql-connector-java-6.0.6.jar   $CATALINA_HOME/lib/
+COPY --from=BUILD /usr/app/target/sistema.war   $CATALINA_HOME/webapps/sistema.war
+ENTRYPOINT [ "catalina.sh","jpda", "run" ]
