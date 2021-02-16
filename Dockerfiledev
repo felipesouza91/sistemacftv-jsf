@@ -1,0 +1,15 @@
+FROM maven:3.6.3-jdk-8-slim as BUILD
+WORKDIR /usr/app
+ADD ./pom.xml .
+RUN mvn dependency:resolve
+RUN mvn dependency:resolve-plugins
+COPY ./src ./src
+RUN mvn install 
+
+FROM hotswapagent/tomcat
+RUN mkdir -p /extra_class_path
+RUN mkdir -p /webapp_dir
+COPY --from=BUILD /root/.m2/repository/mysql/mysql-connector-java/8.0.22/mysql-connector-java-8.0.22.jar   ${SERVER_HOME}/lib/
+COPY --from=BUILD /usr/app/target/*.war ${DEPLOYMENT_DIR}
+EXPOSE 8000
+ENV JAVA_OPTS="-XXaltjvm=dcevm -agentlib:jdwp=transport=dt_socket,server=y,address=8000,suspend=n -javaagent:/opt/hotswap-agent/hotswap-agent.jar -Dextra.class.path=/extra_class_path -Dwebapp.dir=/webapp_dir"

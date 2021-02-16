@@ -1,15 +1,21 @@
 version: '3'
 services:
   database:
-    image: mysql:
+    image: mysql:5.7
     environment:
       - MYSQL_ROOT_PASSWORD=1234
     networks:
       - database-network
+
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfiledev
+      args:
+        version: 1
     volumes:
-      - ./src:/usr/app/src
+      - ./target/classes/:/extra_class_path
+      - ./src/main/webapp:/webapp_dir
     ports:
       - '8080:8080'
       - '8000:8000'
