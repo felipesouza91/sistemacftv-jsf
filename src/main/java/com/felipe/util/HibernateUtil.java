@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -24,11 +25,12 @@ public class HibernateUtil {
 	}
 
 	public static Session getSession() {
-		if(sessionFactory == null ) {
-			Session session = createEntityManager().unwrap(Session.class);
-			sessionFactory = session.getSessionFactory();
+		Session session = createEntityManager().unwrap(Session.class);
+		sessionFactory = session.getSessionFactory();
+		try {
+			return sessionFactory.getCurrentSession();
+		} catch (HibernateException e) {
 			return sessionFactory.openSession();
 		}
-		return sessionFactory.getCurrentSession();
 	}
 }

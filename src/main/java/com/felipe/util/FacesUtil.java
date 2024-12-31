@@ -14,8 +14,17 @@ public class FacesUtil {
 		FacesContext context = FacesContext.getCurrentInstance();
 
 		FacesMessage facesMsg = new FacesMessage(serv, msg, msg);
-
+		
 		context.addMessage(null, facesMsg);
+	}
+
+
+	public static void addMensagem(String clientId, Severity serv, String msg) {
+		FacesContext context = FacesContext.getCurrentInstance();
+
+		FacesMessage facesMsg = new FacesMessage(serv, msg, msg);
+
+		context.addMessage(clientId, facesMsg);
 	}
 
 	public static Object getRequestAttribute(String nome) {

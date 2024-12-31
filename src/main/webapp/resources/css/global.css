@@ -1,0 +1,9 @@
+body {
+    height: 100vh;
+  }
+ .mt-10 {
+  margin-top: 5.5rem;
+ }
+ .form-container {
+  max-width: 600px;
+ }

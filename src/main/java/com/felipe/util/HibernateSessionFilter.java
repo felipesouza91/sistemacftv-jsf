@@ -1,6 +1,8 @@
 package com.felipe.util;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -15,6 +17,8 @@ import org.hibernate.Transaction;
 
 @WebFilter(servletNames = { "Faces Servlet" })
 public class HibernateSessionFilter implements Filter {
+
+	private static final Logger logger = Logger.getLogger(HibernateSessionFilter.class.getName());
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -31,6 +35,7 @@ public class HibernateSessionFilter implements Filter {
 
 			trx.commit();
 		} catch (Exception e) {
+			logger.log(Level.WARNING, e.getMessage(), e);;
 			if (trx != null) {
 				trx.rollback();
 			}
