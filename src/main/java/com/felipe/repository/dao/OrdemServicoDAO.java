@@ -19,7 +19,7 @@ public class OrdemServicoDAO implements OrdemServicoRepository {
 
 	private Session session;
 
-	private final String CLIENTE_CLASS = "cliente";
+	private static final String CLIENTE_TABLE_NAME = "cliente";
 
 
 	public OrdemServicoDAO(Session session) {
@@ -69,19 +69,19 @@ public class OrdemServicoDAO implements OrdemServicoRepository {
 
 			}
 			case 1: {
-				return session.createCriteria(OrdemServico.class).createAlias(CLIENTE_CLASS, "c")
+				return session.createCriteria(OrdemServico.class).createAlias(CLIENTE_TABLE_NAME, "c")
 						.add(Restrictions.ilike("c.razaoSocial", descricao, MatchMode.ANYWHERE)).list();
 			}
 			case 2: {
-				return session.createCriteria(OrdemServico.class).createAlias(CLIENTE_CLASS, "c")
+				return session.createCriteria(OrdemServico.class).createAlias(CLIENTE_TABLE_NAME, "c")
 						.add(Restrictions.ilike("c.fantazia", descricao, MatchMode.ANYWHERE)).list();
 			}
 			case 3: {
-				return session.createCriteria(OrdemServico.class).createAlias(CLIENTE_CLASS, "c")
+				return session.createCriteria(OrdemServico.class).createAlias(CLIENTE_TABLE_NAME, "c")
 						.add(Restrictions.ilike("c.bairro.nome", descricao, MatchMode.ANYWHERE)).list();
 			}
 			case 4: {
-				return session.createCriteria(OrdemServico.class).createAlias(CLIENTE_CLASS, "c")
+				return session.createCriteria(OrdemServico.class).createAlias(CLIENTE_TABLE_NAME, "c")
 						.add(Restrictions.ilike("c.rua", descricao, MatchMode.ANYWHERE)).list();
 			}
 			case 6: {

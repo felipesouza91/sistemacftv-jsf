@@ -22,7 +22,7 @@ public class CadastroOrdemServicoBean {
 
 	private Repositorios rep = new Repositorios();
 
-	private transient OrdemServicoRepository osDao;
+	private  OrdemServicoRepository osDao;
 
 	private Cliente cliente;
 
