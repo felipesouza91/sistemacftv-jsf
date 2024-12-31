@@ -104,7 +104,7 @@ public class OrdemServicoDAO implements OrdemServicoRepository {
 	@Override
 	public List<OrdemServico> getTodosPorCliente(Cliente c) {
 
-		return session.createCriteria(OrdemServico.class).createAlias("cliente", "c")
+		return session.createCriteria(OrdemServico.class).createAlias(CLIENTE_TABLE_NAME, "c")
 				.add(Restrictions.eq("c.id", c.getId())).list();
 
 	}
