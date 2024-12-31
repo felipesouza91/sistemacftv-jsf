@@ -2,6 +2,8 @@ package com.felipe.view.cadastros;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -68,13 +70,12 @@ public class CadastroVerificarGravacaoBean {
 		this.rep = rep;
 	}
 
-	public ArrayList<Dvr> getListDvr() {
+	public List<Dvr> getListDvr() {
 		DvrRepository dvrdao = rep.getDvr();
 		if (cliente != null) {
 			listDvr.addAll(dvrdao.getTodosPorCliente(this.cliente));
-			// listDvr.addAll(this.cliente.getListDvr());
 		} else {
-			return null;
+			return Collections.emptyList();
 		}
 		return listDvr;
 

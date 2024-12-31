@@ -25,10 +25,6 @@ public class Contato implements Serializable {
 	@JoinColumn(name = "cliente", referencedColumnName = "id")
 	private Cliente cliente;
 
-	public Contato() {
-
-	}
-
 	public Integer getId() {
 		return id;
 	}

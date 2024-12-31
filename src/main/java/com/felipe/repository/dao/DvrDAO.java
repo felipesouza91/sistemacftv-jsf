@@ -22,7 +22,7 @@ public class DvrDAO implements DvrRepository {
 	@Override
 	public Dvr getPorCodigo(Integer id) {
 
-		return (Dvr) session.get(Dvr.class, id);
+		return session.get(Dvr.class, id);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -40,7 +40,7 @@ public class DvrDAO implements DvrRepository {
 
 	@Override
 	public void excluir(Dvr c) {
-
+		session.remove(c);
 	}
 
 	@Override

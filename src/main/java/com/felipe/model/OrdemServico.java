@@ -20,6 +20,8 @@ import org.hibernate.annotations.Type;
 @Entity
 public class OrdemServico implements Serializable {
 
+	public static final String CODIGO_SERVICE_COLUMN = "codigoService";
+
 	@Id
 	@GeneratedValue
 	private Integer id;

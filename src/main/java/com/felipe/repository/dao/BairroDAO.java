@@ -34,12 +34,11 @@ public class BairroDAO implements BairroRepository {
 	@Override
 	public Bairro getPorCodigo(Integer id) {
 
-		return (Bairro) session.get(Bairro.class, id);
+		return session.get(Bairro.class, id);
 	}
 
 	@Override
 	public List<Bairro> getPorFiltro(String filtro, String descricao) {
-
 		return null;
 	}
 

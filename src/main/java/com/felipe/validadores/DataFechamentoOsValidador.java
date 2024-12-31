@@ -3,6 +3,7 @@ package com.felipe.validadores;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.FacesValidator;
@@ -24,6 +25,9 @@ public class DataFechamentoOsValidador implements Validator {
 		Object label = MessageFactory.getLabel(context, component);
 		if (date != null && date.after(getDataHoje())) {
 			String desc = label + "não pode ser depois que hoje";
+			FacesMessage fmsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, desc, desc);
+
+			throw new ValidatorException(fmsg);
 		}
 
 	}

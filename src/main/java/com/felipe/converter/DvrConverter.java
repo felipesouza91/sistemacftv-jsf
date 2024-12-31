@@ -17,15 +17,11 @@ public class DvrConverter implements Converter {
 	public Object getAsObject(FacesContext context, UIComponent componet, String value) {
 		Dvr retorno = null;
 		DvrRepository dvrDao = repositorio.getDvr();
-		if (!value.equals("")) {
-			if (value != null) {
-				try {
-					retorno = dvrDao.getPorCodigo(Integer.parseInt(value));
-
-				} catch (Exception e) {
-					retorno = null;
-				}
-
+		if (value != null && !value.equals("")) {
+			try {
+				retorno = dvrDao.getPorCodigo(Integer.parseInt(value));
+			} catch (Exception e) {
+				retorno = null;
 			}
 		}
 		return retorno;

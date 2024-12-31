@@ -17,10 +17,6 @@ public class MotivoOs implements Serializable {
 	@Column(nullable = false, unique = true)
 	private String descricao;
 
-	public MotivoOs() {
-
-	}
-
 	public Integer getId() {
 		return id;
 	}

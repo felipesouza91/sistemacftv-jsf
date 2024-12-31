@@ -34,16 +34,8 @@ public class CadastroClienteBean implements Serializable {
 	@SuppressWarnings("unchecked")
 	@PostConstruct
 	public void init() {
-
 		CidadeRepository cidadeDao = repositorio.getCidade();
 		listCidade.addAll(cidadeDao.getTodos());
-
-		/*
-		 * if(cliente != null){ BairroRepository bairroDAO = new BairroDAO((Session)
-		 * FacesUtil.getRequestAttribute("session")); listBairro = (ArrayList<Bairro>)
-		 * bairroDAO.getTodos(); }
-		 */
-
 	}
 
 	public Cliente getCliente() {
@@ -63,7 +55,7 @@ public class CadastroClienteBean implements Serializable {
 
 	}
 
-	public ArrayList<Bairro> getListBairro() {
+	public List<Bairro> getListBairro() {
 		return listBairro;
 	}
 
@@ -76,7 +68,6 @@ public class CadastroClienteBean implements Serializable {
 		clienteDao = repositorio.getCliente();
 		clienteDao.salvar(this.cliente);
 
-		// this.cliente = new Cliente();
 
 		FacesUtil.addMensagem(FacesMessage.SEVERITY_INFO, "Cadastrado com sucesso!");
 	}

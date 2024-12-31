@@ -1,6 +1,7 @@
 package com.felipe.view.consulta;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -37,26 +38,16 @@ public class ConsultaUsuarioBean {
 	public void modificaPesquisaDescricao(ValueChangeEvent event) {
 		Integer a = (Integer) event.getNewValue();
 
-		switch (a) {
-			case 3: {
-				this.editar = false;
-				this.render = true;
-
-				break;
-			}
-
-			default: {
-				this.editar = true;
-				this.render = false;
-
-				break;
-			}
-
+		if(a.equals(3)) {
+			this.editar = false;
+			this.render = true;
+		} else {
+			this.editar = true;
+			this.render = false;
 		}
-
 	}
 
-	public ArrayList<Usuario> getListUsuario() {
+	public List<Usuario> getListUsuario() {
 		return listUsuario;
 	}
 

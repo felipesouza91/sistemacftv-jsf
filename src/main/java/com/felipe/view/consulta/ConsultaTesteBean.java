@@ -2,6 +2,7 @@ package com.felipe.view.consulta;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -21,9 +22,9 @@ public class ConsultaTesteBean implements Serializable {
 
 	private Repositorios rep = new Repositorios();
 
-	private VerificacaoGravacaoRepository testeDao = rep.getVerificacaoGravacao();
+	private transient VerificacaoGravacaoRepository testeDao = rep.getVerificacaoGravacao();
 
-	private DvrRepository dvrDao = rep.getDvr();
+	private transient DvrRepository dvrDao = rep.getDvr();
 
 	private ArrayList<Dvr> listDvr = new ArrayList<Dvr>();
 
@@ -44,7 +45,7 @@ public class ConsultaTesteBean implements Serializable {
 		}
 	}
 
-	public ArrayList<VerificacaoGravacao> getListTeste() {
+	public List<VerificacaoGravacao> getListTeste() {
 		return listTeste;
 	}
 

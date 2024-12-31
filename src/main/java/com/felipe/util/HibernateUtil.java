@@ -3,6 +3,7 @@ package com.felipe.util;
 import java.util.Properties;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import org.hibernate.HibernateException;
@@ -11,22 +12,26 @@ import org.hibernate.SessionFactory;
 
 public class HibernateUtil {
 
-	public static EntityManager createEntityManager() {
-		Properties properties = new Properties();
-		properties.setProperty("Teste", "logal");
-		return Persistence.createEntityManagerFactory("CFTV-PU", properties).createEntityManager();
+	private static SessionFactory sessionFactory;
+	private static EntityManager entityManager;
+
+	
+	private HibernateUtil() {
+		this.entityManager = getSession();
 	}
 
-	public static SessionFactory sessionFactory;
+	public static EntityManager createEntityManager() {
+		Properties properties = new Properties();
+		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("CFTV-PU", properties);
+		return entityManagerFactory.createEntityManager();
+	}
 
 	public static Session getSession() {
-		Session session = createEntityManager().unwrap(Session.class);
-		sessionFactory = session.getSessionFactory();
-		try {
-			return sessionFactory.getCurrentSession();
-		} catch (HibernateException e) {
+		if(sessionFactory == null ) {
+			Session session = entityManager.unwrap(Session.class);
+			sessionFactory = session.getSessionFactory();
 			return sessionFactory.openSession();
 		}
-
+		return sessionFactory.getCurrentSession();
 	}
 }

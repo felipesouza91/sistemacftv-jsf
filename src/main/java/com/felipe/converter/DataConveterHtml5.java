@@ -12,12 +12,11 @@ import javax.faces.convert.FacesConverter;
 @FacesConverter("com.felipe.converter.dataHtml5")
 public class DataConveterHtml5 implements Converter {
 
-	private static DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	private final DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent componet, String value) {
 		Date c = null;
-		;
 		try {
 			c = sdf.parse(value);
 

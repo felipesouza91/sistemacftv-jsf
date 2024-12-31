@@ -23,10 +23,6 @@ public class Usuario implements Serializable {
 
 	private String privilegio;
 
-	public Usuario() {
-
-	}
-
 	public Integer getId() {
 		return id;
 	}

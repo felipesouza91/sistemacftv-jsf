@@ -15,7 +15,6 @@ public interface DvrRepository {
 
 	public void excluir(Dvr c);
 
-	// public List<Cliente> getPorFiltro(int codigoFiltro, String descricao);
 	public List<Dvr> getTodosPorCliente(Cliente c);
 
 	public List<Dvr> getTodosUltimaAtualizacao();

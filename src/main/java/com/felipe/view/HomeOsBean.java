@@ -17,7 +17,6 @@ public class HomeOsBean {
 	private Repositorios rep = new Repositorios();
 
 	public List<OrdemServico> getListOs() {
-		System.out.println(rep.getOs().getComPendencias().size());
 		return rep.getOs().getComPendencias();
 	}
 

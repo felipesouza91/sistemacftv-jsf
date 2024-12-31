@@ -19,6 +19,9 @@ public class OrdemServicoDAO implements OrdemServicoRepository {
 
 	private Session session;
 
+	private final String CLIENTE_CLASS = "cliente";
+
+
 	public OrdemServicoDAO(Session session) {
 		this.session = session;
 	}
@@ -32,7 +35,7 @@ public class OrdemServicoDAO implements OrdemServicoRepository {
 	@Override
 	public List<OrdemServico> getPorCodigoService(Integer codigoService) {
 
-		return session.createCriteria(OrdemServico.class).add(Restrictions.eq("codigoService", codigoService)).list();
+		return session.createCriteria(OrdemServico.class).add(Restrictions.eq(OrdemServico.CODIGO_SERVICE_COLUMN, codigoService)).list();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -66,19 +69,19 @@ public class OrdemServicoDAO implements OrdemServicoRepository {
 
 			}
 			case 1: {
-				return session.createCriteria(OrdemServico.class).createAlias("cliente", "c")
+				return session.createCriteria(OrdemServico.class).createAlias(CLIENTE_CLASS, "c")
 						.add(Restrictions.ilike("c.razaoSocial", descricao, MatchMode.ANYWHERE)).list();
 			}
 			case 2: {
-				return session.createCriteria(OrdemServico.class).createAlias("cliente", "c")
+				return session.createCriteria(OrdemServico.class).createAlias(CLIENTE_CLASS, "c")
 						.add(Restrictions.ilike("c.fantazia", descricao, MatchMode.ANYWHERE)).list();
 			}
 			case 3: {
-				return session.createCriteria(OrdemServico.class).createAlias("cliente", "c")
+				return session.createCriteria(OrdemServico.class).createAlias(CLIENTE_CLASS, "c")
 						.add(Restrictions.ilike("c.bairro.nome", descricao, MatchMode.ANYWHERE)).list();
 			}
 			case 4: {
-				return session.createCriteria(OrdemServico.class).createAlias("cliente", "c")
+				return session.createCriteria(OrdemServico.class).createAlias(CLIENTE_CLASS, "c")
 						.add(Restrictions.ilike("c.rua", descricao, MatchMode.ANYWHERE)).list();
 			}
 			case 6: {
@@ -114,7 +117,6 @@ public class OrdemServicoDAO implements OrdemServicoRepository {
 		dataPesquisafinal.setHours(23);
 		dataPesquisafinal.setMinutes(59);
 		dataPesquisafinal.setSeconds(59);
-		// System.out.println(dataPesquisafinal);
 		return session.createCriteria(OrdemServico.class).add(Restrictions.gt("dataAbertura", dataPesquisa))
 				.add(Restrictions.lt("dataAbertura", dataPesquisafinal)).list();
 
@@ -132,7 +134,7 @@ public class OrdemServicoDAO implements OrdemServicoRepository {
 	@Override
 	public List<OrdemServico> getSemService() {
 
-		return session.createCriteria(OrdemServico.class).add(Restrictions.isNull("codigoService")).list();
+		return session.createCriteria(OrdemServico.class).add(Restrictions.isNull(OrdemServico.CODIGO_SERVICE_COLUMN)).list();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -149,7 +151,7 @@ public class OrdemServicoDAO implements OrdemServicoRepository {
 		Criteria c = session.createCriteria(OrdemServico.class);
 		Criterion fechamento = Restrictions.isNull("fechamento");
 		Criterion prioridade = Restrictions.eq("prioridadeOs", "PRIORIDADE");
-		Criterion service = Restrictions.isNull("codigoService");
+		Criterion service = Restrictions.isNull(OrdemServico.CODIGO_SERVICE_COLUMN);
 
 		LogicalExpression or = Restrictions.or(service, prioridade);
 		LogicalExpression or2 = Restrictions.and(or, fechamento);
@@ -157,12 +159,7 @@ public class OrdemServicoDAO implements OrdemServicoRepository {
 
 		return c.list();
 
-		/*
-		 * session.createCriteria(OrdemServico.class)
-		 * .add(Restrictions.isNull("fechamento")) .add(Restrictions.eq("prioridadeOs",
-		 * "Prioridade")) .add(Restrictions.isNull("codigoService"))
-		 * .addOrder(Order.asc("dataAbertura")).list();
-		 */
+	
 	}
 
 }

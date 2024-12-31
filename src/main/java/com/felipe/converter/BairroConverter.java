@@ -1,5 +1,6 @@
 package com.felipe.converter;
 
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -21,13 +22,11 @@ public class BairroConverter implements Converter {
 		if (value != null) {
 			retorno = bairroDao.getPorCodigo(Integer.parseInt(value));
 		}
-		System.out.println("teste");
 		return retorno;
 	}
 
 	@Override
 	public String getAsString(FacesContext contexte, UIComponent componet, Object value) {
-
 		if (value != null) {
 			return ((Bairro) value).getId().toString();
 		}

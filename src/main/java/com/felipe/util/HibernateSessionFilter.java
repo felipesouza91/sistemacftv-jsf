@@ -47,6 +47,5 @@ public class HibernateSessionFilter implements Filter {
 
 	@Override
 	public void destroy() {
-
 	}
 }

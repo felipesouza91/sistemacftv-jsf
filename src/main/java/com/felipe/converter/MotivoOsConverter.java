@@ -17,10 +17,8 @@ public class MotivoOsConverter implements Converter {
 	public Object getAsObject(FacesContext context, UIComponent componet, String value) {
 		MotivoOs retorno = null;
 		MontivoOsRepository motivoOsDao = repositorio.getMotivoOss();
-		if (!value.equals("")) {
-			if (value != null) {
-				retorno = motivoOsDao.getPorCodigo(new Integer(value));
-			}
+		if (value != null && !value.equals("")) {
+			retorno = motivoOsDao.getPorCodigo(new Integer(value));
 		}
 
 		return retorno;

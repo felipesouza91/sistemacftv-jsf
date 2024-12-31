@@ -22,7 +22,7 @@ public class CadastroOrdemServicoBean {
 
 	private Repositorios rep = new Repositorios();
 
-	private OrdemServicoRepository osDao;
+	private transient OrdemServicoRepository osDao;
 
 	private Cliente cliente;
 
@@ -51,7 +51,6 @@ public class CadastroOrdemServicoBean {
 
 	public void setOrdemServico(OrdemServico ordemServico) {
 		this.ordemServico = ordemServico;
-		// this.ordemServico.setCliente(this.cliente);
 	}
 
 	public void setCliente(Cliente cliente) {

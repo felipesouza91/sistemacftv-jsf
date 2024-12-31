@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -64,7 +65,7 @@ public class ConsultaOsBean implements Serializable {
 			return listOs;
 		} else {
 			osDao = rep.getOs();
-			listOs = (List<OrdemServico>) osDao.getTodosPorCliente(cliente);
+			listOs = osDao.getTodosPorCliente(cliente);
 			if (listOs.isEmpty()) {
 				FacesUtil.addMensagem(FacesMessage.SEVERITY_ERROR, "Não foram encontradas ordens para o cliente selecionado");
 			}
@@ -85,18 +86,16 @@ public class ConsultaOsBean implements Serializable {
 	}
 
 	public void pesquisar() {
-		// listOs.clear();
 		osDao = rep.getOs();
 		System.out.println(dataPesquisa);
 		if (this.dataPesquisa == null) {
 			if (tipoPequisa == 7) {
-				listOs = (ArrayList<OrdemServico>) osDao.getPorMotivoOs(motivoOs);
+				listOs = osDao.getPorMotivoOs(motivoOs);
 			} else {
-				listOs = (ArrayList<OrdemServico>) osDao.getPorFiltro(tipoPequisa, descricaoPesquisa);
+				listOs = osDao.getPorFiltro(tipoPequisa, descricaoPesquisa);
 			}
 		} else {
-			System.out.println(dataPesquisa);
-			listOs = (ArrayList<OrdemServico>) osDao.getPorFiltroData(tipoPequisa, dataPesquisa);
+			listOs = osDao.getPorFiltroData(tipoPequisa, dataPesquisa);
 		}
 		this.dataPesquisa = null;
 		if (listOs.isEmpty()) {

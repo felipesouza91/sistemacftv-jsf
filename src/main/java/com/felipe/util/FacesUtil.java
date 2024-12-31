@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 
 public class FacesUtil {
 
+	private FacesUtil() {}
+
 	public static void addMensagem(Severity serv, String msg) {
 		FacesContext context = FacesContext.getCurrentInstance();
 

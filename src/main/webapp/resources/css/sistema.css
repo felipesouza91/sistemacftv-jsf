@@ -67,7 +67,7 @@ a {
 	border-top-width:10px;
 	border-top-style: solid;
 	border-top-color: navy;
-	font-family: "Candara";
+	font-family: "Candara", sans-serif;
 	font-size: 14px;
 	text-align: center;
 }
