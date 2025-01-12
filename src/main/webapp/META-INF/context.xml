@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Context>
-	<Realm className="org.apache.catalina.realm.JDBCRealm" 
-		driverName="com.mysql.jdbc.Driver" 
-			connectionURL="jdbc:mysql://database/databasecftv" 
-			connectionName="root" connectionPassword="1234" 
-			userTable="Usuario" 
-				userNameCol="nomeUsuario" 
-				userCredCol="AES_DECRYPT(senha,SHA2('password',512))" 
-				userRoleTable="Usuario" 
-				roleNameCol="privilegio" />
+	<Realm className="org.apache.catalina.realm.DataSourceRealm"
+		userTable="Usuario"
+		userNameCol="nomeUsuario"
+		userCredCol="AES_DECRYPT(senha,SHA2('password',512))"
+		userRoleTable="Usuario"
+		roleNameCol="privilegio"
+		localDataSource="true"
+		dataSourceName="jdbc/sistema" />
 </Context>
