@@ -3,24 +3,58 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 	
-	<h:outputStylesheet library="css" name="sistema.css"/>
-		
-	<div class="menu">
-		<h:form>
-			<h:outputFormat value="#{msg.hello}" styleClass="logged-user">		
-				<f:param value="#{facesContext.externalContext.userPrincipal.name}"/>		
-			</h:outputFormat>
-			<h:link value="Home" outcome="Home"/>
-			<h:link value="Consulta Cliente" outcome="ConsultaCliente"/>
-			<h:link value="Consulta Ordem de serviço" outcome="ConsultaOs"/>
-			<h:link value="Consulta Sistema de Câmeras" outcome="ConsultaSistema"/>
-			<h:link value="Consulta Teste" outcome="ConsultaTeste"/>
-			<h:link value="Consulta Usuários" outcome="ConsultaUsuario" rendered="#{request.isUserInRole('ADMINISTRADOR')}"/>
-			<h:link value="Configuração Motivo OS" outcome="MotivoOs" rendered="#{not request.isUserInRole('USUARIO')}"/>
-			<h:commandLink action="#{segurancaBean.sair}" value="Sair"/>
-		</h:form>
-		
-	</div>
+	
+	<header>
+		<h:form class="navbar navbar-expand-lg header-nav-bg">
+			<nav>
+				
+			</nav>
+			<div class="container-fluid">
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span> 
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<h:link class="nav-link active" aria-current="page"  value="Home" outcome="Home"/>
+						</li>
+						<li class="nav-item">
+							<h:link class="nav-link" value="Consulta Cliente" outcome="ConsultaCliente"/>
+
+						</li>
+						<li class="nav-item">
+							<h:link class="nav-link" value="Consulta Ordem de serviço" outcome="ConsultaOs"/>
+
+						</li>
+						<li class="nav-item">
+							<h:link class="nav-link" value="Consulta Sistema de Câmeras" outcome="ConsultaSistema"/>
+
+						</li>
+						<li class="nav-item">
+							<h:link class="nav-link" value="Consulta Teste" outcome="ConsultaTeste"/>
+						</li>
+						<li class="nav-item dropdown header-nav-bg">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								Configurações
+							</a>
+							<ul class="dropdown-menu header-nav-bg">
+								<li>
+									<h:link class="dropdown-item" value="Consulta Usuários" outcome="ConsultaUsuario" rendered="#{request.isUserInRole('ADMINISTRADOR')}"/>
+								</li>
+								<li>
+									<h:link class="dropdown-item" value="Configuração Motivo OS" outcome="MotivoOs" rendered="#{not request.isUserInRole('USUARIO')}"/>
+
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<div class="d-flex" role="search">
+						<h:commandLink class="btn btn-secondary" action="#{segurancaBean.sair}" value="Sair"/>
+					</div>
+				</div>
+			</div>
+		</h:form>	
+	</header>
 </ui:composition>
 
 

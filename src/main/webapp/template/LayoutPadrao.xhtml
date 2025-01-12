@@ -15,11 +15,9 @@
     <h:outputStylesheet library="vendors/bootstrap" name="bootstrap.min.css" position="last" />
   </h:head>
   <h:body>
-    <div id="header">
-      <ui:insert name="cabecalho">
+    <ui:insert name="cabecalho">
         <ui:include src="/template/Cabecalho.xhtml" />
-      </ui:insert>
-    </div>
+    </ui:insert>
 
     <div id="content">
       <ui:insert name="conteudo" />
@@ -30,6 +28,7 @@
     </div>
     
     <h:outputScript  library="vendors/feather" name="feather.min.js" position="last" />
+    <h:outputScript  library="vendors/bootstrap" name="popper.min.js" position="last" />
     <h:outputScript  library="vendors/bootstrap" name="bootstrap.min.js" position="last" />
   </h:body>
 </html>
