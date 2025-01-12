@@ -18,9 +18,9 @@ public class HibernateUtil {
 	}
 
 	private static EntityManager createEntityManager() {
-		String dataBaseHost = System.getProperty("DATABASE_HOST");
-		String dataBaseUser = System.getProperty("DATABASE_USER");
-		String dataBasePassword = System.getProperty("DATABASE_USER");
+		String dataBaseHost = System.getenv("DATABASE_HOST");
+		String dataBaseUser = System.getenv("DATABASE_USER");
+		String dataBasePassword = System.getenv("DATABASE_PASSWORD");
 
 		String dataBaseUrl = String.format("jdbc:mysql://%s/databasecftv?createDatabaseIfNotExist=true", dataBaseHost);
 
