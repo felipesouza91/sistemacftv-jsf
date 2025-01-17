@@ -14,18 +14,18 @@
     <h:outputStylesheet library="css" name="sistema.css" position="last" />
     <h:outputStylesheet library="vendors/bootstrap" name="bootstrap.min.css" position="last" />
   </h:head>
-  <h:body>
+  <h:body class="d-flex flex-column">
     <ui:insert name="cabecalho">
         <ui:include src="/template/Cabecalho.xhtml" />
     </ui:insert>
 
-    <div id="content">
+    <main id="content" class="h-100 mx-auto">
       <ui:insert name="conteudo" />
-    </div>
+    </main>
 
-    <div id="footer">
-      Sistema CFTV
-    </div>
+    <footer class="mt-auto p-3 text-center">
+      <span>Desenvolvidor por Felipe Souza Santana</span>
+    </footer>
     
     <h:outputScript  library="vendors/feather" name="feather.min.js" position="last" />
     <h:outputScript  library="vendors/bootstrap" name="popper.min.js" position="last" />
