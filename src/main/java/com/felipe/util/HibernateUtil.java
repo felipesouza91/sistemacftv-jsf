@@ -13,36 +13,46 @@ import org.hibernate.SessionFactory;
 public class HibernateUtil {
 
 	private static SessionFactory sessionFactory;
+	private static Session currentSession;
+	private static EntityManager entityManager;
 
 	private HibernateUtil() {
 	}
 
 	private static EntityManager createEntityManager() {
-		String dataBaseHost = System.getenv("DATABASE_HOST");
-		String dataBaseUser = System.getenv("DATABASE_USER");
-		String dataBasePassword = System.getenv("DATABASE_PASSWORD");
+		if (entityManager == null ) {
+			String dataBaseHost = System.getenv("DATABASE_HOST") != null ? System.getenv("DATABASE_HOST") : "localhost";
+			String dataBaseUser = System.getenv("DATABASE_USER") != null ? System.getenv("DATABASE_USER") : "root";
+			String dataBasePassword = System.getenv("DATABASE_PASSWORD") != null ? System.getenv("DATABASE_PASSWORD") : "1234";
 
-		String dataBaseUrl = String.format("jdbc:mysql://%s/databasecftv?createDatabaseIfNotExist=true", dataBaseHost);
+			String dataBaseUrl = String.format("jdbc:mysql://%s/databasecftv?createDatabaseIfNotExist=true", dataBaseHost);
 
-		Properties properties = new Properties();
+			Properties properties = new Properties();
 
-		properties.setProperty("javax.persistence.jdbc.url", dataBaseUrl);
-		properties.setProperty("javax.persistence.jdbc.user", dataBaseUser);
-		properties.setProperty("javax.persistence.jdbc.password", dataBasePassword);
-		properties.setProperty("javax.persistence.jdbc.driver", "com.mysql.cj.jdbc.Driver");
+			properties.setProperty("javax.persistence.jdbc.url", dataBaseUrl);
+			properties.setProperty("javax.persistence.jdbc.user", dataBaseUser);
+			properties.setProperty("javax.persistence.jdbc.password", dataBasePassword);
+			properties.setProperty("javax.persistence.jdbc.driver", "com.mysql.cj.jdbc.Driver");
 
-		EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("CFTV-PU", properties);
-		return entityManagerFactory.createEntityManager();
+			EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("CFTV-PU", properties);
+			entityManager = entityManagerFactory.createEntityManager();
+			return entityManager;
+		} 
+		return entityManager;
 	}
 
 	public static Session getSession() {
-		Session session = createEntityManager().unwrap(Session.class);
-		sessionFactory = session.getSessionFactory();
-		try {
-			return sessionFactory.getCurrentSession();
-		} catch (HibernateException e) {
-			return sessionFactory.openSession();
+		if(currentSession == null || !currentSession.isOpen() )  {
+			Session session = createEntityManager().unwrap(Session.class);
+			sessionFactory = session.getSessionFactory();
+			try {
+				return sessionFactory.getCurrentSession();
+			} catch (HibernateException e) {
+				currentSession = sessionFactory.openSession();
+				return currentSession;
+			}
 		}
+		return currentSession;
+		
 	}
-
 }
