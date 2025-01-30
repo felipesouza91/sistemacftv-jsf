@@ -3,12 +3,10 @@ package com.felipe.view.cadastros;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-
 import com.felipe.model.Bairro;
 import com.felipe.model.Cidade;
 import com.felipe.model.Cliente;
@@ -36,6 +34,7 @@ public class CadastroClienteBean implements Serializable {
 	public void init() {
 		CidadeRepository cidadeDao = repositorio.getCidade();
 		listCidade.addAll(cidadeDao.getTodos());
+		preencheBairro();
 	}
 
 	public Cliente getCliente() {
@@ -46,6 +45,7 @@ public class CadastroClienteBean implements Serializable {
 		if (cliente == null) {
 			this.cliente = new Cliente();
 			listBairro.clear();
+			preencheBairro();
 		} else {
 			this.cliente = cliente;
 			this.listBairro.add(this.cliente.getBairro());
@@ -61,14 +61,17 @@ public class CadastroClienteBean implements Serializable {
 
 	public void preencheBairro() {
 		BairroRepository bairroDAO = repositorio.getBairro();
-		listBairro = (ArrayList<Bairro>) bairroDAO.getPorCidade(cidade);
+		if (cidade != null) {
+			listBairro = (ArrayList<Bairro>) bairroDAO.getPorCidade(cidade);
+		} else {
+			listBairro = (ArrayList<Bairro>) bairroDAO.getTodos();
+		}
+
 	}
 
 	public void salvarCliente() {
 		clienteDao = repositorio.getCliente();
 		clienteDao.salvar(this.cliente);
-
-
 		FacesUtil.addMensagem(FacesMessage.SEVERITY_INFO, "Cadastrado com sucesso!");
 	}
 
