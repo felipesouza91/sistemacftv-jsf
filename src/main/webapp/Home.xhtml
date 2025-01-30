@@ -7,63 +7,59 @@
 	<ui:define name="titulo">Sistema CFTV</ui:define>
 	
 	<ui:define name="conteudo">
-		<h:outputStylesheet library="css" name="cadastro.css"/>
-		<h1>Sistema CFTV Beta 0.3</h1>
-		<h:outputText value="Data do Lancamento: 06/02/2017"/>
-		<br></br>
-		<h:outputText value="1 - Adicionado campo para informar o solicitante da ordem de serviço"/>
-		
-		<h:dataTable var="ordem" value="#{homeOsBean.listOs}" styleClass="grid home-grid"
-			headerClass="cabecalho" rowClasses="cor-sim, cor-nao"
-			columnClasses="tipo, tipo, tipo, tipo, tipo, tipo, tipo, tipo, tipo, tipo">
-			<h:column>
-					<f:facet name="header">Codigo</f:facet>
-					<h:outputText value="#{ordem.id}"/>
-			</h:column>
-			<h:column>
-					<f:facet name="header">Nivel</f:facet>
-					<h:outputText value="#{ordem.prioridadeOs}"/>
-			</h:column>
+		<div class="container mt-3">
+			<h1>Sistema CFTV Beta 0.3</h1>
+			<h:outputText value="Data do Lancamento: 06/02/2017"/>
 			
-			<h:column>
-					<f:facet name="header">Codigo OS Service</f:facet>
-					<h:outputText value="#{ordem.codigoService}"/>
-			</h:column>
-			
-			<h:column>
-					<f:facet name="header">Nome Cliente</f:facet>
-					<h:outputText value="#{ordem.cliente.fantazia}"/>
-			</h:column>
-			
-			<h:column>
-					<f:facet name="header">Motivo OS</f:facet>
-					<h:outputText value="#{ordem.motivoOs.descricao}"/>
-			</h:column>
-			
-			<h:column>
-					<f:facet name="header">Data Abertura</f:facet>
-					<h:outputText value="#{ordem.dataAbertura}"/>
-			</h:column>
-			
+			<h:dataTable var="ordem" value="#{homeOsBean.listOs}" styleClass="table">
 				<h:column>
-					<h:link outcome="CadastroOrdemServico" title="Edição de Os">
-						<h:graphicImage value="/imagens/editar.png"/>	
-						<f:param name="codigoOs" value="#{ordem.id}"/>
-						<f:param name="codigoCliente" value="#{ordem.cliente.id}"/>
-					</h:link>
-				<h:panelGroup>
-					<h:link outcome="FechamentoOs" title="Fechamento de Os" rendered="#{empty ordem.fechamento}">
-						<h:graphicImage value="/imagens/fechamento.png"/>
-						<f:param name="codigoOs" value="#{ordem.id}"/>
-					</h:link>
-					<h:link outcome="#" title="Ordem já fechada" rendered="#{not empty ordem.fechamento}">
-						<h:graphicImage value="/imagens/fechamentoOk.png"/>
-					</h:link>
-				</h:panelGroup>	
-						
+						<f:facet name="header">Codigo</f:facet>
+						<h:outputText value="#{ordem.id}"/>
 				</h:column>
-		</h:dataTable>
-		
+				<h:column>
+						<f:facet name="header">Nivel</f:facet>
+						<h:outputText value="#{ordem.prioridadeOs}"/>
+				</h:column>
+				
+				<h:column>
+						<f:facet name="header">Codigo OS Service</f:facet>
+						<h:outputText value="#{ordem.codigoService}"/>
+				</h:column>
+				
+				<h:column>
+						<f:facet name="header">Nome Cliente</f:facet>
+						<h:outputText value="#{ordem.cliente.fantazia}"/>
+				</h:column>
+				
+				<h:column>
+						<f:facet name="header">Motivo OS</f:facet>
+						<h:outputText value="#{ordem.motivoOs.descricao}"/>
+				</h:column>
+				
+				<h:column>
+						<f:facet name="header">Data Abertura</f:facet>
+						<h:outputText value="#{ordem.dataAbertura}"/>
+				</h:column>
+				
+					<h:column>
+						<h:link outcome="CadastroOrdemServico" title="Edição de Os">
+							<h:graphicImage value="/imagens/editar.png"/>	
+							<f:param name="codigoOs" value="#{ordem.id}"/>
+							<f:param name="codigoCliente" value="#{ordem.cliente.id}"/>
+						</h:link>
+					<h:panelGroup>
+						<h:link outcome="FechamentoOs" title="Fechamento de Os" rendered="#{empty ordem.fechamento}">
+							<h:graphicImage value="/imagens/fechamento.png"/>
+							<f:param name="codigoOs" value="#{ordem.id}"/>
+						</h:link>
+						<h:link outcome="#" title="Ordem já fechada" rendered="#{not empty ordem.fechamento}">
+							<h:graphicImage value="/imagens/fechamentoOk.png"/>
+						</h:link>
+					</h:panelGroup>	
+							
+					</h:column>
+			</h:dataTable>
+		</div>
 	</ui:define>
 
 </ui:composition>

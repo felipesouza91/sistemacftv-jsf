@@ -1,114 +1,121 @@
-<ui:composition template="/template/LayoutPadrao.xhtml" 
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
+<ui:composition template="/template/LayoutPadrao.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-	
+
 	<ui:define name="titulo">Consulta de Cliente</ui:define>
-	
+
 	<ui:define name="conteudo">
-		<h:outputStylesheet library="css" name="consulta.css"/>
-		<h:form id="formConsulta">
-			<h:messages showSummary="true" showDetail="false" styleClass="form-messages"
-						errorClass="error" infoClass="info" />
-						
-			<h:button value="Novo Cliente" outcome="CadastroCliente"
-			rendered="#{not request.isUserInRole('USUARIO')}"/>
-			
-			<h:panelGrid columns="2" id="panelBusca">
-				<h:outputLabel value="Pesquisa por:"></h:outputLabel>
-				<h:outputLabel/>
-				
-				<h:selectOneMenu value="#{consultaClienteBean.tipoPesquisa}" id="tipoPesquisa"
-					valueChangeListener="#{consultaClienteBean.modificaCampo}"  immediate="true"
-					onchange="jsf.ajax.request(this, event, {execute: '@form', render:'formConsulta:panelBusca'} )">
-					<f:selectItem itemLabel="Todos" itemValue="0"></f:selectItem>
-					<f:selectItem itemLabel="Codigo Service" itemValue="6"></f:selectItem>
-					<f:selectItem itemLabel="Dominio" itemValue="1"></f:selectItem>
-					<f:selectItem itemLabel="Razão Social" itemValue="2"></f:selectItem>
-					<f:selectItem itemLabel="Nome Fantazia" itemValue="3"></f:selectItem>
-					<f:selectItem itemLabel="Bairro" itemValue="4"></f:selectItem>
-					<f:selectItem itemLabel="Endereço" itemValue="5"></f:selectItem>
-					
-				</h:selectOneMenu>
-				<h:panelGroup>
-					<h:inputText id="descricao" size="40" value="#{consultaClienteBean.descricaoPesquisa}"
-						rendered="#{consultaClienteBean.edita}">
+		<div class="container mt-3">
+
+			<h:form class="row align-items-end" id="formConsulta">
+				<div class="container">
+					<h:messages showSummary="true" showDetail="false" role="alert"
+						styleClass="alert alert-danger alert-dismissible list-unstyled" errorClass="alert-danger"
+						infoClass="alert-info" />
+				</div>
+
+				<div class="col-12 mb-3">
+					<h:button value="Novo Cliente" outcome="CadastroCliente"
+						rendered="#{not request.isUserInRole('USUARIO')}" class="btn btn-success" />
+				</div>
+				<div class="col-12 col-md-2">
+					<label for="tipoPesquisa">Pesquisar por:</label>
+					<h:selectOneMenu value="#{consultaClienteBean.tipoPesquisa}" id="tipoPesquisa" class="form-select"
+						valueChangeListener="#{consultaClienteBean.modificaCampo}" immediate="true"
+						onchange="jsf.ajax.request(this, event, {execute: '@form', render:'formConsulta'} )">
+						<f:selectItem itemLabel="Todos" itemValue="0"></f:selectItem>
+						<f:selectItem itemLabel="Codigo Service" itemValue="6"></f:selectItem>
+						<f:selectItem itemLabel="Dominio" itemValue="1"></f:selectItem>
+						<f:selectItem itemLabel="Razão Social" itemValue="2"></f:selectItem>
+						<f:selectItem itemLabel="Nome Fantazia" itemValue="3"></f:selectItem>
+						<f:selectItem itemLabel="Bairro" itemValue="4"></f:selectItem>
+						<f:selectItem itemLabel="Endereço" itemValue="5"></f:selectItem>
+					</h:selectOneMenu>
+				</div>
+				<div class="col-12 col-md mt-1">
+					<h:inputText class="form-control" id="descricao" size="40"
+						value="#{consultaClienteBean.descricaoPesquisa}" rendered="#{consultaClienteBean.edita}">
 					</h:inputText>
-					<h:commandButton value="Pesquisar" action="#{consultaClienteBean.pesquisar}"/>
-				</h:panelGroup>
-			</h:panelGrid>
-			
-			<h:dataTable value="#{consultaClienteBean.listCliente}" var="cliente"  width="100%"
-				styleClass="grid" headerClass="cabecalho" rowClasses="cor-sim, cor-nao"
-				columnClasses="tipo, tipo, tipo, tipo, tipo, tipo, tipo, tipo, tipo, tipo">
-				
-				<h:column>
-					<f:facet name="header">Codigo</f:facet>
-					<h:outputText value="#{cliente.id}"/>
-				</h:column>
-				<h:column>
-					<f:facet name="header">Codigo Serivce</f:facet>
-					<h:outputText value="#{cliente.codigoService}"/>
-				</h:column>
-				
-				
-				<h:column>
-					<f:facet name="header">Razão Social</f:facet>
-					<h:outputText value="#{cliente.razaoSocial}"/>
-				</h:column>
-				
-				<h:column>
-					<f:facet name="header">Nome Fantazia</f:facet>
-					<h:outputText value="#{cliente.fantazia}"/>
-				</h:column>
-				
-				<h:column>
-					<f:facet name="header">Telefone 1</f:facet>
-					<h:outputText value="#{cliente.telefone1}" />
-				</h:column>
-				
-				<h:column>
-					<f:facet name="header">Telefone 2</f:facet>
-					<h:outputText value="#{cliente.telefone2}"/>
-				</h:column>
-				
-				<h:column>
-					<f:facet name="header">Dominio</f:facet>
-					<h:outputText value="#{cliente.dominio}"/>
-										
-				</h:column>
-				
-				<h:column>
-					<f:facet name="header">Endereço</f:facet>
-					<h:outputText value="#{cliente.enderecoFormatado}"/>
-				</h:column>
-				
-				<h:column>
-					<f:facet name="header">Bairro</f:facet>
-					<h:outputText value="#{cliente.bairro.nome}"/>
-				</h:column>
-				<h:column>
-					<f:facet name="header">Ações</f:facet>
-					<h:link outcome="CadastroCliente">
-						<h:graphicImage value="/imagens/editar.png" rendered="#{not request.isUserInRole('USUARIO')}"/>	
-						<f:param name="codigo" value="#{cliente.id}"/>
-					</h:link>
-					<h:link outcome="CadastroOrdemServico">
-						<h:graphicImage value="/imagens/manut.png" title="Abertura de ordem de serviço"/>	
-						<f:param name="codigoCliente" value="#{cliente.id}"/>
-					</h:link>
-					<h:commandLink action="#{consultaClienteBean.excluir}" 
-						rendered="#{request.isUserInRole('ADMINISTRADOR')}">					
-						<h:graphicImage value="/imagens/excluir.png"/>
-						<f:setPropertyActionListener value="#{cliente}" target="#{consultaClienteBean.clienteExcluir}"/>
-					</h:commandLink>	
-				</h:column>
-				
-			</h:dataTable>
-			
-		</h:form>
-	
+				</div>
+				<div class="col-12 col-md-2 mt-3">
+					<h:commandButton class="btn btn-primary" value="Pesquisar"
+						action="#{consultaClienteBean.pesquisar}" />
+				</div>
+			</h:form>
+
+			<div class="card mt-3">
+				<div class="card-body">
+					<h:dataTable value="#{consultaClienteBean.listCliente}" var="cliente" class="table">
+						<h:column>
+							<f:facet name="header">Codigo</f:facet>
+							<h:outputText value="#{cliente.id}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Codigo Serivce</f:facet>
+							<h:outputText value="#{cliente.codigoService}" />
+						</h:column>
+
+
+						<h:column>
+							<f:facet name="header">Razão Social</f:facet>
+							<h:outputText value="#{cliente.razaoSocial}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">Nome Fantazia</f:facet>
+							<h:outputText value="#{cliente.fantazia}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">Telefone 1</f:facet>
+							<h:outputText value="#{cliente.telefone1}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">Telefone 2</f:facet>
+							<h:outputText value="#{cliente.telefone2}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">Dominio</f:facet>
+							<h:outputText value="#{cliente.dominio}" />
+
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">Endereço</f:facet>
+							<h:outputText value="#{cliente.enderecoFormatado}" />
+						</h:column>
+
+						<h:column>
+							<f:facet name="header">Bairro</f:facet>
+							<h:outputText value="#{cliente.bairro.nome}" />
+						</h:column>
+						<h:column>
+							<f:facet name="header">Ações</f:facet>
+							<h:form>
+								<h:link outcome="CadastroCliente" class="btn p-1">
+									<i data-feather="edit"></i>
+									<f:param name="codigo" value="#{cliente.id}" />
+								</h:link>
+								<h:link outcome="CadastroOrdemServico" class="btn p-1">
+									<i data-feather="tool"></i>
+									<f:param name="codigoCliente" value="#{cliente.id}" />
+								</h:link>
+								<h:commandLink action="#{consultaClienteBean.excluir}"
+									rendered="#{request.isUserInRole('ADMINISTRADOR')}" class="btn p-1">
+									<i data-feather="edit"></i>
+									<f:setPropertyActionListener value="#{cliente}"
+										target="#{consultaClienteBean.clienteExcluir}" />
+								</h:commandLink>
+							</h:form>
+
+						</h:column>
+
+					</h:dataTable>
+				</div>
+			</div>
+		</div>
 	</ui:define>
 
 
