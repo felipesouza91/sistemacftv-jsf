@@ -1,3 +1,16 @@
+body {
+    height: 100vh;
+}
+
 .header-nav-bg {
-	background-color: #e2e2e2;
+    background-color: #e2e2e2;
+}
+
+svg {
+    width: 20px;
+    height: 20px;
+}
+
+.sem_estilo_ul {
+    list-style-type: none;
 }
