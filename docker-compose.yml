@@ -6,6 +6,7 @@ services:
       - MYSQL_ROOT_PASSWORD=1234
     networks:
       - database-network
+  
   web:
     build: .
     volumes:
