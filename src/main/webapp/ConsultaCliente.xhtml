@@ -51,12 +51,6 @@
 							<h:outputText value="#{cliente.id}" />
 						</h:column>
 						<h:column>
-							<f:facet name="header">Codigo Serivce</f:facet>
-							<h:outputText value="#{cliente.codigoService}" />
-						</h:column>
-
-
-						<h:column>
 							<f:facet name="header">Razão Social</f:facet>
 							<h:outputText value="#{cliente.razaoSocial}" />
 						</h:column>
@@ -104,12 +98,11 @@
 								</h:link>
 								<h:commandLink action="#{consultaClienteBean.excluir}"
 									rendered="#{request.isUserInRole('ADMINISTRADOR')}" class="btn p-1">
-									<i data-feather="edit"></i>
+									<i data-feather="trash"></i>
 									<f:setPropertyActionListener value="#{cliente}"
 										target="#{consultaClienteBean.clienteExcluir}" />
 								</h:commandLink>
 							</h:form>
-
 						</h:column>
 
 					</h:dataTable>
