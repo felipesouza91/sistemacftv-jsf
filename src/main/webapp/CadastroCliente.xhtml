@@ -121,76 +121,82 @@
 										<f:passThroughAttribute name="type" value="reset" />
 									</h:button>
 								</div>
-
 							</div>
 						</h:form>
 					</div>
 				</div>
 				<div class="tab-pane fade" id="equipamento-tab-pane" role="tabpanel" aria-labelledby="equipamento-tab"
 					tabindex="0">
-					<div>
+					<div class="container mt-3">
+						<form class="row">
+							<h:button class="btn btn-primary col-2" value="Novo sistema"
+								outcome="CadastroSistemaDeCameras"
+								rendered="#{not empty cadastroClienteBean.cliente.id}">
+								<f:param name="codigoCliente" value="#{cadastroClienteBean.cliente.id}" />
+							</h:button>
+						</form>
+						<div class="card mt-3">
+							<div class="card-body">
+								<h:dataTable value="#{cadastroClienteBean.listDvr}" var="dvr" styleClass="table">
+									<h:column>
+										<f:facet name="header">Codigo</f:facet>
+										<h:outputText value="#{dvr.id}" />
+									</h:column>
+									<h:column>
+										<f:facet name="header">Modelo</f:facet>
+										<h:outputText value="#{dvr.fabricante} - #{dvr.modeloFabricante}" />
+									</h:column>
+									<h:column>
+										<f:facet name="header">P. HTTP</f:facet>
+										<h:outputText value="#{dvr.portaHttp}" />
+									</h:column>
+									<h:column>
+										<f:facet name="header">P. Serviço</f:facet>
+										<h:outputText value="#{dvr.portaServico}" />
+									</h:column>
+									<h:column>
+										<f:facet name="header">Ip</f:facet>
+										<h:outputText value="#{dvr.ip}" />
+									</h:column>
+									<h:column>
+										<f:facet name="header">Masc Sub-Rede</f:facet>
+										<h:outputText value="#{dvr.mascara}" />
+									</h:column>
+									<h:column>
+										<f:facet name="header">Gateway</f:facet>
+										<h:outputText value="#{dvr.gateway}" />
+									</h:column>
+									<h:column>
+										<f:facet name="header">DNS Princ.</f:facet>
+										<h:outputText value="#{dvr.dnsPrincipal}" />
+									</h:column>
+									<h:column>
+										<f:facet name="header">DNS Alt.</f:facet>
+										<h:outputText value="#{dvr.dnsAlternativo}" />
+									</h:column>
+									<h:column>
+										<f:facet name="header">Numero de Série</f:facet>
+										<h:outputText value="#{dvr.numeroSerie}" />
+									</h:column>
+									<h:column>
+										<f:facet name="header">Dominio para acesso</f:facet>
+										<h:outputLink value="http://#{dvr.cliente.dominio}:#{dvr.portaHttp}"
+											target="http://#{dvr.cliente.dominio}:#{dvr.portaHttp}">Link para acesso
+										</h:outputLink>
+									</h:column>
 
+									<h:column>
+										<h:link outcome="CadastroSistemaDeCameras" class="btn p-1">
+											<i data-feather="edit"></i>
+											<f:param name="codigoDvr" value="#{dvr.id}" />
+											<f:param name="codigoCliente" value="#{dvr.cliente.id}" />
+										</h:link>
+									</h:column>
+								</h:dataTable>
+							</div>
+						</div>
 					</div>
-					
-					<h:dataTable value="#{cadastroClienteBean.listDvr}" var="dvr">
-						<h:column>
-							<f:facet name="header">Codigo</f:facet>
-							<h:outputText value="#{dvr.id}" />
-						</h:column>
-						<h:column>
-							<f:facet name="header">Modelo</f:facet>
-							<h:outputText value="#{dvr.fabricante} - #{dvr.modeloFabricante}" />
-						</h:column>
-
-						<h:column>
-							<f:facet name="header">Porta HTTP</f:facet>
-							<h:outputText value="#{dvr.portaHttp}" />
-						</h:column>
-						<h:column>
-							<f:facet name="header">Porta Serviço</f:facet>
-							<h:outputText value="#{dvr.portaServico}" />
-						</h:column>
-						<h:column>
-							<f:facet name="header">Ip</f:facet>
-							<h:outputText value="#{dvr.ip}" />
-						</h:column>
-						<h:column>
-							<f:facet name="header">Mascara Sub-Rede</f:facet>
-							<h:outputText value="#{dvr.mascara}" />
-						</h:column>
-						<h:column>
-							<f:facet name="header">Gateway</f:facet>
-							<h:outputText value="#{dvr.gateway}" />
-						</h:column>
-						<h:column>
-							<f:facet name="header">DNS Principal</f:facet>
-							<h:outputText value="#{dvr.dnsPrincipal}" />
-						</h:column>
-						<h:column>
-							<f:facet name="header">DNS Alternativo</f:facet>
-							<h:outputText value="#{dvr.dnsAlternativo}" />
-						</h:column>
-						<h:column>
-							<f:facet name="header">Numero de Série</f:facet>
-							<h:outputText value="#{dvr.numeroSerie}" />
-						</h:column>
-						<h:column>
-							<f:facet name="header">Dominio para acesso</f:facet>
-							<h:outputLink value="http://#{dvr.cliente.dominio}:#{dvr.portaHttp}"
-								target="http://#{dvr.cliente.dominio}:#{dvr.portaHttp}">Link para acesso</h:outputLink>
-						</h:column>
-
-						<h:column>
-							<h:link outcome="CadastroSistemaDeCameras">
-								<h:graphicImage value="/imagens/editar.png" />
-								<f:param name="codigoDvr" value="#{dvr.id}" />
-								<f:param name="codigoCliente" value="#{dvr.cliente.id}" />
-							</h:link>
-						</h:column>
-					</h:dataTable>
-
 				</div>
-
 			</div>
 		</div>
 	</ui:define>
