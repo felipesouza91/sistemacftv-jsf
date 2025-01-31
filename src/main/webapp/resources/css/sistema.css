@@ -1,5 +1,8 @@
-* {
-    font-size: 14px;
+*,
+body,
+main,
+form {
+    font-size: 14px !important;
 }
 
 body {

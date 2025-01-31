@@ -1,102 +1,116 @@
 <ui:composition template="/template/LayoutPadrao.xhtml" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-	<f:metadata>
-		<f:viewParam name="codigoCliente" value="#{cadastroDvrBean.cliente}" />
-		<f:viewParam name="codigoDvr" value="#{cadastroDvrBean.dvr}" />
-	</f:metadata>
+  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+  <f:metadata>
+    <f:viewParam name="codigoCliente" value="#{cadastroDvrBean.cliente}" />
+    <f:viewParam name="codigoDvr" value="#{cadastroDvrBean.dvr}" />
+  </f:metadata>
 
 
-	<ui:define name="titulo">Cadastro Sistema de Câmeras</ui:define>
+  <ui:define name="titulo">Cadastro Sistema de Câmeras</ui:define>
 
-	<ui:define name="conteudo">
-		<h:form class="form">
+  <ui:define name="conteudo">
+    <div class="container mt-3">
+      <h:form class="col custom-form">
+        <h:messages showSummary="true" showDetail="false" styleClass="form-messages" errorClass="error"
+          infoClass="info" />
+        <h:outputLabel class="fs-3 text fw-bold me-2" value="Cliente: " />
+        <h:link class="fs-4 text" outcome="CadastroCliente">
+          <f:param name="codigo" value="#{cadastroDvrBean.cliente.id}" />
+          <h:outputText value="#{cadastroDvrBean.cliente.fantazia}" />
+        </h:link>
 
-			<h:commandButton value="Novo" />
+        <div class="col-3 mt-4">
+          <label for="id" class="form-label">Codigo</label>
+          <h:inputText value="#{cadastroDvrBean.dvr.id}" id="id" class="form-control" disabled="true" />
+        </div>
+        <div class="row mt-2">
+          <div class="col-12 col-md-3">
+            <label for="portaHttp" class="form-label">Porta HTTP</label>
+            <h:inputText size="10" maxlength="5" required="true" value="#{cadastroDvrBean.dvr.portaHttp}" id="portaHttp"
+              class="form-control" />
+          </div>
+          <div class="col-12 col-md-3">
+            <label for="portaServico" class="form-label">Porta Serviço</label>
+            <h:inputText size="10" maxlength="5" required="true" value="#{cadastroDvrBean.dvr.portaServico}"
+              id="portaServico" class="form-control" />
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-12 col-md-3">
+            <label for="inputEmail4" class="form-label">Fabricante</label>
+            <h:selectOneMenu value="#{cadastroDvrBean.dvr.fabricante}" id="fabricante" label="Fabricante"
+              immediate="true" valueChangeListener="#{cadastroDvrBean.mudaFabricante}" onchange="submit();"
+              class="form-select">
+              <f:selectItems value="#{cadastroDvrBean.tiposFabricante}" var="tipoFabricante"
+                itemLabel="#{tipoFabricante.descricao}" itemValue="#{tipoFabricante}" class="form-select" />
+            </h:selectOneMenu>
+          </div>
+          <div class="col-12 col-md-3">
+            <label for=" modelo" class="form-label">Modelo</label>
+            <h:inputText size="13" value="#{cadastroDvrBean.dvr.modeloFabricante}" id="modelo" label="Modelo Dvr"
+              class="form-control" />
+          </div>
+        </div>
 
-			<h:button value="Editar" />
-			<h:panelGrid columns="1">
-				<h:panelGroup>
-					<h:outputLabel value="Cliente: " />
-					<h:link outcome="CadastroCliente">
-						<f:param name="codigo" value="#{cadastroDvrBean.cliente.id}" />
-						<h:outputText value="#{cadastroDvrBean.cliente.fantazia}" />
-					</h:link>
-
-				</h:panelGroup>
-			</h:panelGrid>
-
-			<h1>Cadastro DVR</h1>
-			<h:messages showSummary="true" showDetail="false" styleClass="form-messages" errorClass="error"
-				infoClass="info" />
-			<h:panelGrid columns="2" styleClass="form-grid">
-
-				<h:outputLabel value="Codigo:" />
-				<h:outputText size="10" />
-
-				<h:outputLabel value="Porta Http:" />
-				<h:panelGroup>
-					<h:inputText size="10" maxlength="5" required="true" value="#{cadastroDvrBean.dvr.portaHttp}"
-						id="portaHttp" label="Porta HTTP" />
-					<h:outputLabel value="Porta Serviço:" />
-					<h:inputText size="10" maxlength="5" required="true" value="#{cadastroDvrBean.dvr.portaServico}"
-						id="portaServico" label="Porta Servico" />
-				</h:panelGroup>
-
-				<h:outputLabel value="Fabicante" />
-				<h:panelGroup>
-					<h:selectOneMenu value="#{cadastroDvrBean.dvr.fabricante}" id="fabricante" label="Fabricante"
-						immediate="true" valueChangeListener="#{cadastroDvrBean.mudaFabricante}" onchange="submit();">
-						<f:selectItems value="#{cadastroDvrBean.tiposFabricante}" var="tipoFabricante"
-							itemLabel="#{tipoFabricante.descricao}" itemValue="#{tipoFabricante}" />
-
-					</h:selectOneMenu>
-
-					<h:outputLabel value="Modelo Dvr:" />
-					<h:inputText size="13" value="#{cadastroDvrBean.dvr.modeloFabricante}" id="modelo"
-						label="Modelo Dvr" />
-				</h:panelGroup>
-
-
-				<h:outputLabel value="Serial" id="labelSerial" rendered="#{cadastroDvrBean.editSerial}" />
-				<h:inputText size="16" value="#{cadastroDvrBean.dvr.numeroSerie}" id="serial" label="Numero Serial"
-					rendered="#{cadastroDvrBean.editSerial}" required="#{cadastroDvrBean.editSerial}">
-					<f:validator validatorId="com.felipe.validadores.serialValidador" />
-				</h:inputText>
-
-				<h:outputLabel value="IP:" />
-				<h:inputText size="45" required="true" value="#{cadastroDvrBean.dvr.ip}" id="ip" label="Ip" />
-
-				<h:outputLabel value="Mascara Sub-Rede:" />
-				<h:inputText size="45" required="true" value="#{cadastroDvrBean.dvr.mascara}" id="mascara"
-					label="Mascara Sub-Rede" />
-
-				<h:outputLabel value="Gateway:" />
-				<h:inputText size="45" required="true" value="#{cadastroDvrBean.dvr.gateway}" id="gateway"
-					label="Gateway" />
-
-				<h:outputLabel value="DNS Principal:" />
-				<h:inputText size="45" required="true" value="#{cadastroDvrBean.dvr.dnsPrincipal}" id="dnsPrincipal"
-					label="Dns Principal" />
-
-				<h:outputLabel value="DNS Alternativo:" />
-				<h:inputText size="45" value="#{cadastroDvrBean.dvr.dnsAlternativo}" id="dnsAlternativo"
-					label="Dns Alternativo" />
-
-				<h:outputLabel value="Dominio" />
-				<h:outputLink></h:outputLink>
-
-				<h:outputLabel />
-				<h:panelGroup>
-					<h:commandButton value="Salvar" action="#{cadastroDvrBean.salvar}" />
-					<h:button value="Limpar">
-						<f:passThroughAttribute name="type" value="reset"></f:passThroughAttribute>
-					</h:button>
-				</h:panelGroup>
-
-			</h:panelGrid>
-		</h:form>
-
-	</ui:define>
+        <h:panelGroup rendered="#{cadastroDvrBean.editSerial}">
+          <div class="row">
+            <div class="col col-md-6 mt-2">
+              <label for="inputEmail4" class="form-label">Serial</label>
+              <h:inputText size="16" value="#{cadastroDvrBean.dvr.numeroSerie}" id="serial" label="Numero Serial"
+                rendered="#{cadastroDvrBean.editSerial}" required="#{cadastroDvrBean.editSerial}" class="form-control">
+                <f:validator validatorId="com.felipe.validadores.serialValidador" />
+              </h:inputText>
+            </div>
+          </div>
+        </h:panelGroup>
+        <div class="row">
+          <div class="col col-md-6 mt-2">
+            <label for="ip" class="form-label">IP</label>
+            <h:inputText size="45" class="form-control" required="true" value="#{cadastroDvrBean.dvr.ip}" id="ip" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col col-md-6 mt-2">
+            <label for="mascara" class="form-label">Mascara Sub-Rede</label>
+            <h:inputText size="45" class="form-control" required="true" value="#{cadastroDvrBean.dvr.mascara}"
+              id="mascara" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col col-md-6 mt-2">
+            <label for="gateway" class="form-label">Gateway</label>
+            <h:inputText size="45" required="true" class="form-control" value="#{cadastroDvrBean.dvr.gateway}"
+              id="gateway" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col col-md-6 mt-2">
+            <label for="dnsPrincipal" class="form-label">DNS Principal</label>
+            <h:inputText size="45" required="true" value="#{cadastroDvrBean.dvr.dnsPrincipal}" id="dnsPrincipal"
+              class="form-control" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col col-md-6 mt-2">
+            <label for="inputEmail4" class="form-label">DNS Alterantivo</label>
+            <h:inputText size="45" value="#{cadastroDvrBean.dvr.dnsAlternativo}" id="dnsAlternativo"
+              class="form-control" />
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-3">
+            <h:commandButton class="btn btn-success container-fluid" value="Salvar"
+              action="#{cadastroDvrBean.salvar}" />
+          </div>
+          <div class="col-3">
+            <h:button class="btn btn-secondary container-fluid" value="Limpar">
+              <f:passThroughAttribute name="type" value="reset"></f:passThroughAttribute>
+            </h:button>
+          </div>
+        </div>
+      </h:form>
+    </div>
+  </ui:define>
 
 </ui:composition>
