@@ -1,0 +1,39 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <div class="container mt-3">
+        <form class="col">
+            <h:button class="btn btn-primary col-2" value="Abertura de OS" outcome="CadastroOrdemServico"
+                rendered="#{not empty cadastroClienteBean.cliente.id}">
+                <f:param name="codigoCliente" value="#{cadastroClienteBean.cliente.id}" />
+                <f:param name="codigoOS" value="null" />
+            </h:button>
+        </form>
+        <div class="card mt-3">
+            <div class="card-body">
+                <h:dataTable class="table" value="#{consultaOsBean.listOs}" var="os">
+                    <h:column>
+                        <f:facet name="header">Número</f:facet>
+                        <h:outputText value="#{dvr.id}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Motivo</f:facet>
+                        <h:outputText value="#{dvr.fabricante} - #{dvr.modeloFabricante}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Prioridade</f:facet>
+                        <h:outputText value="#{dvr.portaHttp}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Descrição</f:facet>
+                        <h:outputText value="#{dvr.portaServico}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Data abertura</f:facet>
+                        <h:outputText value="#{dvr.ip}" />
+                    </h:column>
+                </h:dataTable>
+            </div>
+        </div>
+    </div>
+</ui:composition>
