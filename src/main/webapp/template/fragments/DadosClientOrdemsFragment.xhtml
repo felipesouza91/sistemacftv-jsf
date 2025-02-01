@@ -11,26 +11,31 @@
         </form>
         <div class="card mt-3">
             <div class="card-body">
-                <h:dataTable class="table" value="#{consultaOsBean.listOs}" var="os">
+                <h:dataTable class="table" value="#{cadastroClienteBean.listOrdens}" var="os">
                     <h:column>
                         <f:facet name="header">Número</f:facet>
-                        <h:outputText value="#{dvr.id}" />
+                        <h:outputText value="#{os.id}" />
                     </h:column>
                     <h:column>
                         <f:facet name="header">Motivo</f:facet>
-                        <h:outputText value="#{dvr.fabricante} - #{dvr.modeloFabricante}" />
+                        <h:outputText value="#{os.motivoOs.descricao}" />
                     </h:column>
                     <h:column>
-                        <f:facet name="header">Prioridade</f:facet>
-                        <h:outputText value="#{dvr.portaHttp}" />
+                        <f:facet name="header">Solicitante</f:facet>
+                        <h:outputText value="#{os.solicitante}" />
                     </h:column>
+                    <h:column>
+                        <f:facet name="header">Nivel OS</f:facet>
+                        <h:outputText value="${os.prioridadeOs}" />
+                    </h:column>
+
                     <h:column>
                         <f:facet name="header">Descrição</f:facet>
-                        <h:outputText value="#{dvr.portaServico}" />
+                        <h:outputText value="#{os.descricao}" />
                     </h:column>
                     <h:column>
-                        <f:facet name="header">Data abertura</f:facet>
-                        <h:outputText value="#{dvr.ip}" />
+                        <f:facet name="header">Data da Abertura</f:facet>
+                        <h:outputText value="#{os.dataAbertura}" converter="com.felipe.converter.dataConverter" />
                     </h:column>
                 </h:dataTable>
             </div>
