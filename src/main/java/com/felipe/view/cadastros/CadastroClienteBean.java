@@ -39,7 +39,6 @@ public class CadastroClienteBean implements Serializable {
 		CidadeRepository cidadeDao = repositorio.getCidade();
 		listCidade.addAll(cidadeDao.getTodos());
 		preencheBairro();
-		listarOrdens();
 	}
 
 	public Cliente getCliente() {
@@ -56,6 +55,8 @@ public class CadastroClienteBean implements Serializable {
 			this.listBairro.add(this.cliente.getBairro());
 			cidade = this.cliente.getBairro().getCidade();
 			this.listDvr.addAll(this.cliente.getListDvr());
+			listarOrdens();
+
 		}
 
 	}
