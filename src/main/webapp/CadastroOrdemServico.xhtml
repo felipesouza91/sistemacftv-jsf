@@ -1,148 +1,98 @@
-<ui:composition
-  template="/template/LayoutPadrao.xhtml"
-  xmlns="http://www.w3.org/1999/xhtml"
-  xmlns:h="http://xmlns.jcp.org/jsf/html"
-  xmlns:f="http://xmlns.jcp.org/jsf/core"
-  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
->
+<ui:composition template="/template/LayoutPadrao.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
   <f:metadata>
-    <f:viewParam
-      name="codigoCliente"
-      value="#{cadastroOrdemServicoBean.cliente}"
-    />
-    <f:viewParam
-      name="codigoOs"
-      value="#{cadastroOrdemServicoBean.ordemServico}"
-    />
+    <f:viewParam name="codigoCliente" value="#{cadastroOrdemServicoBean.cliente}" />
+    <f:viewParam name="codigoOs" value="#{cadastroOrdemServicoBean.ordemServico}" />
   </f:metadata>
   <ui:define name="titulo">Cadastro Ordem Serviço</ui:define>
 
   <ui:define name="conteudo">
-    <h:outputStylesheet library="css" name="cadastro.css" />
-    <h:form id="consultaOS">
-      <h1>Abertura de Ordem de Serviço</h1>
-      <h:messages
-        showSummary="true"
-        showDetail="false"
-        styleClass="form-messages"
-        errorClass="error"
-        infoClass="info"
-      />
+    <div class="custom-container mt-3 mx-2 mx-lg-auto">
+      <h:messages showSummary="true" showDetail="false" styleClass="list-unstyled" errorClass="alert alert-danger"
+        infoClass="alert alert-success" />
+      <div class="card">
+        <div class="card-header">
+          Abertura de ordem
+        </div>
+        <div class="card-body">
+          <h:form id="consultaOS">
+            <div class="row">
+              <div class="col-12 col-md-4">
+                <label for="id" class="form-label">Cliente</label>
+                <h:link outcome="CadastroCliente" rendered="#{not empty cadastroOrdemServicoBean.cliente.id}">
+                  <f:param name="codigo" value="#{cadastroOrdemServicoBean.cliente.id}" />
+                  <h:outputText value="#{cadastroOrdemServicoBean.cliente.fantazia}" id="cliente"
+                    title="Abrir cadastro do Cliente" rendered="#{not empty cadastroOrdemServicoBean.cliente.id}"
+                    class="form-control-plaintext" />
+                </h:link>
+              </div>
+              <div class="col-12 col-md-4 mt-2">
+                <label for="id" class="form-label">Id</label>
+                <h:inputText size="10" value="#{cadastroOrdemServicoBean.ordemServico.id}" id="id" disabled="true"
+                  class="form-control" />
+              </div>
+              <div class="col-12 col-md-4 mt-2">
+                <label for="data" class="form-label">Data do Abetura:</label>
+                <h:outputText id="data" class="form-control"
+                  value="#{cadastroOrdemServicoBean.ordemServico.dataAbertura}"
+                  converter="com.felipe.converter.dataConverter" disabled="true" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 col-md-6 mt-2">
+                <label for="solicitante" class="form-label">Solicitante</label>
+                <h:inputText value="#{cadastroOrdemServicoBean.ordemServico.solicitante}" id="solicitante"
+                  required="true" size="39" class="form-control" />
+              </div>
+              <div class="col-12 col-md-6 mt-2">
+                <label for="dvr" class="form-label">DVR</label>
+                <h:selectOneMenu value="#{cadastroOrdemServicoBean.ordemServico.dvr}" class="form-select" id="dvr">
+                  <f:selectItem itemLabel="Selecione" />
+                  <f:selectItems value="#{cadastroOrdemServicoBean.cliente.listDvr}" var="dvr" itemValue="#{dvr}"
+                    itemLabel="#{dvr.fabricante}" />
+                </h:selectOneMenu>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-12 col-md-6 mt-2">
+                <label for="prioridade" class="form-label">Prioridade</label>
+                <h:selectOneMenu value="#{cadastroOrdemServicoBean.ordemServico.prioridadeOs}" class="form-select"
+                  id="prioridade">
+                  <f:selectItems var="prioridade" value="#{cadastroOrdemServicoBean.prioridadeOs}"
+                    itemValue="#{prioridade}" itemLabel="#{prioridade.descricao}" />
+                </h:selectOneMenu>
+              </div>
+              <div class="col col-md-6 mt-2">
+                <label for="motivoOs" class="form-label">Motivo</label>
+                <h:selectOneMenu value="#{cadastroOrdemServicoBean.ordemServico.motivoOs}" required="true" id="motivoOs"
+                  class="form-select">
+                  <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+                  <f:selectItems var="motivoOs" value="#{cadastroOrdemServicoBean.listMotivo}" itemValue="#{motivoOs}"
+                    itemLabel="#{motivoOs.descricao}" />
+                </h:selectOneMenu>
+              </div>
+            </div>
+            <div class="row">
+            </div>
+            <div class="row">
+              <div class="col mt-2">
+                <label for="descricao" class="form-label">Descrição</label>
+                <h:inputTextarea class="form-control" value="#{cadastroOrdemServicoBean.ordemServico.descricao}"
+                  cols="40" rows="7" id="descricao" required="true" />
+              </div>
+            </div>
+            <div class="row mt-4">
+              <div class="col-3">
+                <h:commandButton class="btn btn-success container-fluid" value="Salvar"
+                  action="#{cadastroOrdemServicoBean.salvar}" />
+              </div>
+            </div>
+          </h:form>
+        </div>
+      </div>
 
-      <h:panelGrid columns="2" styleClass="from-grid">
-        <h:outputLabel value="Cliente" />
-        <h:panelGroup>
-          <h:link
-            outcome="CadastroCliente"
-            rendered="#{not empty cadastroOrdemServicoBean.cliente.id}"
-          >
-            <f:param
-              name="codigo"
-              value="#{cadastroOrdemServicoBean.cliente.id}"
-            />
-            <h:outputText
-              value="#{cadastroOrdemServicoBean.cliente.fantazia}"
-              id="cliente"
-              title="Abrir cadastro do Cliente"
-              rendered="#{not empty cadastroOrdemServicoBean.cliente.id}"
-            />
-          </h:link>
-          <h:outputLabel value="Codigo Service:" />
-          <h:outputText
-            value="#{cadastroOrdemServicoBean.cliente.codigoService}"
-          />
-          <h:outputLabel value="Data Abertura" />
-          <h:outputText
-            value="#{cadastroOrdemServicoBean.ordemServico.dataAbertura}"
-            converter="com.felipe.converter.dataConverter"
-          />
-        </h:panelGroup>
 
-        <h:outputLabel value="ID" />
-        <h:panelGroup>
-          <h:inputText size="10" />
-
-          <h:outputLabel value="Codigo Service:" />
-          <h:inputText
-            size="10"
-            value="#{cadastroOrdemServicoBean.ordemServico.codigoService}"
-            id="codigoService"
-            label="Codigo Service"
-          />
-        </h:panelGroup>
-
-        <h:outputLabel value="Solicitante:" />
-        <h:inputText
-          value="#{cadastroOrdemServicoBean.ordemServico.solicitante}"
-          id="solicitante"
-          label="Solicitante"
-          required="true"
-          size="39"
-        />
-
-        <h:outputLabel value="Dvr" />
-        <h:panelGroup>
-          <h:selectOneMenu
-            value="#{cadastroOrdemServicoBean.ordemServico.dvr}"
-            label="Dvr"
-          >
-            <f:selectItem itemLabel="Selecione" />
-            <f:selectItems
-              value="#{cadastroOrdemServicoBean.cliente.listDvr}"
-              var="dvr"
-              itemValue="#{dvr}"
-              itemLabel="#{dvr.fabricante}"
-            />
-          </h:selectOneMenu>
-
-          <h:outputLabel value="Prioridade" />
-
-          <h:selectOneMenu
-            value="#{cadastroOrdemServicoBean.ordemServico.prioridadeOs}"
-            label="Nivel de Prioridade"
-          >
-            <f:selectItems
-              var="prioridade"
-              value="#{cadastroOrdemServicoBean.prioridadeOs}"
-              itemValue="#{prioridade}"
-              itemLabel="#{prioridade.descricao}"
-            />
-          </h:selectOneMenu>
-        </h:panelGroup>
-
-        <h:outputLabel value="Motivo" />
-        <h:selectOneMenu
-          value="#{cadastroOrdemServicoBean.ordemServico.motivoOs}"
-          required="true"
-          label="Motivo Os"
-        >
-          <f:selectItem itemLabel="Selecione" noSelectionOption="true" />
-          <f:selectItems
-            var="motivoOs"
-            value="#{cadastroOrdemServicoBean.listMotivo}"
-            itemValue="#{motivoOs}"
-            itemLabel="#{motivoOs.descricao}"
-          />
-        </h:selectOneMenu>
-
-        <h:outputLabel value="Descrição" />
-        <h:inputTextarea
-          value="#{cadastroOrdemServicoBean.ordemServico.descricao}"
-          cols="40"
-          rows="7"
-          id="descricao"
-          label="Descrição"
-          required="true"
-        />
-
-        <h:outputLabel />
-        <h:panelGroup>
-          <h:commandButton
-            value="Salvar"
-            action="#{cadastroOrdemServicoBean.salvar}"
-          />
-        </h:panelGroup>
-      </h:panelGrid>
-    </h:form>
+    </div>
   </ui:define>
 </ui:composition>

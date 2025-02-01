@@ -21,3 +21,9 @@ svg {
 .sem_estilo_ul {
     list-style-type: none;
 }
+
+@media (min-width: 992px) {
+    .custom-container {
+        max-width: 800px !important;
+    }
+}
