@@ -22,8 +22,20 @@ svg {
     list-style-type: none;
 }
 
+.form-acao {
+    width: 12% !important;
+}
+
 @media (min-width: 992px) {
     .custom-container {
         max-width: 800px !important;
+    }
+
+    .custom-container-cadastra-teste {
+        max-width: 400px !important;
+    }
+
+    .custom-container-dvr {
+        max-width: 600px !important;
     }
 }

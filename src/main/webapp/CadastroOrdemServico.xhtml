@@ -8,31 +8,29 @@
   <ui:define name="titulo">Cadastro Ordem Serviço</ui:define>
 
   <ui:define name="conteudo">
-    <div class="custom-container mt-3 mx-2 mx-lg-auto">
+    <div class="container custom-container mt-3 mx-2 mx-auto">
       <h:messages showSummary="true" showDetail="false" styleClass="list-unstyled" errorClass="alert alert-danger"
         infoClass="alert alert-success" />
       <div class="card">
-        <div class="card-header">
-          Abertura de ordem
+        <div class="card-header d-flex flex-row justify-content-between align-items-center">
+          <div>
+            Abertura de ordem
+            <h:outputText value="#{cadastroOrdemServicoBean.cliente.fantazia}" class="fw-bold" />
+          </div>
+          <h:link outcome="CadastroCliente" class="btn">
+            <f:param name="codigo" value="#{cadastroOrdemServicoBean.cliente.id}" />
+            <i data-feather="arrow-left"></i>
+          </h:link>
         </div>
         <div class="card-body">
           <h:form id="consultaOS">
             <div class="row">
-              <div class="col-12 col-md-4">
-                <label for="id" class="form-label">Cliente</label>
-                <h:link outcome="CadastroCliente" rendered="#{not empty cadastroOrdemServicoBean.cliente.id}">
-                  <f:param name="codigo" value="#{cadastroOrdemServicoBean.cliente.id}" />
-                  <h:outputText value="#{cadastroOrdemServicoBean.cliente.fantazia}" id="cliente"
-                    title="Abrir cadastro do Cliente" rendered="#{not empty cadastroOrdemServicoBean.cliente.id}"
-                    class="form-control-plaintext" />
-                </h:link>
-              </div>
-              <div class="col-12 col-md-4 mt-2">
-                <label for="id" class="form-label">Id</label>
+              <div class="col-12 col-md-3 mt-2">
+                <label for="id" class="form-label">Código</label>
                 <h:inputText size="10" value="#{cadastroOrdemServicoBean.ordemServico.id}" id="id" disabled="true"
                   class="form-control" />
               </div>
-              <div class="col-12 col-md-4 mt-2">
+              <div class="col-12 col-md-3 mt-2">
                 <label for="data" class="form-label">Data do Abetura:</label>
                 <h:outputText id="data" class="form-control"
                   value="#{cadastroOrdemServicoBean.ordemServico.dataAbertura}"

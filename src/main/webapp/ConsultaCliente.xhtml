@@ -45,67 +45,68 @@
 
 			<div class="card mt-3">
 				<div class="card-body">
-					<h:dataTable value="#{consultaClienteBean.listCliente}" var="cliente" class="table">
-						<h:column>
-							<f:facet name="header">Codigo</f:facet>
-							<h:outputText value="#{cliente.id}" />
-						</h:column>
-						<h:column>
-							<f:facet name="header">Razão Social</f:facet>
-							<h:outputText value="#{cliente.razaoSocial}" />
-						</h:column>
+					<div class="table-responsive">
+						<h:dataTable value="#{consultaClienteBean.listCliente}" var="cliente" class="table">
+							<h:column>
+								<f:facet name="header">Codigo</f:facet>
+								<h:outputText value="#{cliente.id}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">Razão Social</f:facet>
+								<h:outputText value="#{cliente.razaoSocial}" />
+							</h:column>
 
-						<h:column>
-							<f:facet name="header">Nome Fantazia</f:facet>
-							<h:outputText value="#{cliente.fantazia}" />
-						</h:column>
+							<h:column>
+								<f:facet name="header">Nome Fantazia</f:facet>
+								<h:outputText value="#{cliente.fantazia}" />
+							</h:column>
 
-						<h:column>
-							<f:facet name="header">Telefone 1</f:facet>
-							<h:outputText value="#{cliente.telefone1}" />
-						</h:column>
+							<h:column>
+								<f:facet name="header">Telefone 1</f:facet>
+								<h:outputText value="#{cliente.telefone1}" />
+							</h:column>
 
-						<h:column>
-							<f:facet name="header">Telefone 2</f:facet>
-							<h:outputText value="#{cliente.telefone2}" />
-						</h:column>
+							<h:column>
+								<f:facet name="header">Telefone 2</f:facet>
+								<h:outputText value="#{cliente.telefone2}" />
+							</h:column>
 
-						<h:column>
-							<f:facet name="header">Dominio</f:facet>
-							<h:outputText value="#{cliente.dominio}" />
+							<h:column>
+								<f:facet name="header">Dominio</f:facet>
+								<h:outputText value="#{cliente.dominio}" />
 
-						</h:column>
+							</h:column>
 
-						<h:column>
-							<f:facet name="header">Endereço</f:facet>
-							<h:outputText value="#{cliente.enderecoFormatado}" />
-						</h:column>
+							<h:column>
+								<f:facet name="header">Endereço</f:facet>
+								<h:outputText value="#{cliente.enderecoFormatado}" />
+							</h:column>
 
-						<h:column>
-							<f:facet name="header">Bairro</f:facet>
-							<h:outputText value="#{cliente.bairro.nome}" />
-						</h:column>
-						<h:column>
-							<f:facet name="header">Ações</f:facet>
-							<h:form>
-								<h:link outcome="CadastroCliente" class="btn p-1">
-									<i data-feather="edit"></i>
-									<f:param name="codigo" value="#{cliente.id}" />
-								</h:link>
-								<h:link outcome="CadastroOrdemServico" class="btn p-1">
-									<i data-feather="tool"></i>
-									<f:param name="codigoCliente" value="#{cliente.id}" />
-								</h:link>
-								<h:commandLink action="#{consultaClienteBean.excluir}"
-									rendered="#{request.isUserInRole('ADMINISTRADOR')}" class="btn p-1">
-									<i data-feather="trash"></i>
-									<f:setPropertyActionListener value="#{cliente}"
-										target="#{consultaClienteBean.clienteExcluir}" />
-								</h:commandLink>
-							</h:form>
-						</h:column>
-
-					</h:dataTable>
+							<h:column>
+								<f:facet name="header">Bairro</f:facet>
+								<h:outputText value="#{cliente.bairro.nome}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">Ações</f:facet>
+								<h:form>
+									<h:link outcome="CadastroCliente" class="btn p-1">
+										<i data-feather="edit"></i>
+										<f:param name="codigo" value="#{cliente.id}" />
+									</h:link>
+									<h:link outcome="CadastroOrdemServico" class="btn p-1">
+										<i data-feather="tool"></i>
+										<f:param name="codigoCliente" value="#{cliente.id}" />
+									</h:link>
+									<h:commandLink action="#{consultaClienteBean.excluir}"
+										rendered="#{request.isUserInRole('ADMINISTRADOR')}" class="btn p-1">
+										<i data-feather="trash"></i>
+										<f:setPropertyActionListener value="#{cliente}"
+											target="#{consultaClienteBean.clienteExcluir}" />
+									</h:commandLink>
+								</h:form>
+							</h:column>
+						</h:dataTable>
+					</div>
 				</div>
 			</div>
 		</div>
