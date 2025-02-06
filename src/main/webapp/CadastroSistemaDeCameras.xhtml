@@ -11,6 +11,8 @@
 
   <ui:define name="conteudo">
     <div class="container custom-container-dvr mt-3 mx-auto">
+      <h:messages showSummary="true" showDetail="false" styleClass="list-unstyled" errorClass="alert alert-danger"
+        infoClass="alert alert-success" />
       <div class="card">
         <div class="card-header d-flex flex-row justify-content-between align-items-center">
           <div>
@@ -59,7 +61,6 @@
                   class="form-control" />
               </div>
             </div>
-
             <h:panelGroup rendered="#{cadastroDvrBean.editSerial}">
               <div class="row">
                 <div class="col mt-2">

@@ -3,7 +3,7 @@
 
     <div class="container mt-3">
         <form class="col">
-            <h:button class="btn btn-primary col-2" value="Abertura de OS" outcome="CadastroOrdemServico"
+            <h:button class="btn btn-primary col-12 col-md-2" value="Abertura de OS" outcome="CadastroOrdemServico"
                 rendered="#{not empty cadastroClienteBean.cliente.id}">
                 <f:param name="codigoCliente" value="#{cadastroClienteBean.cliente.id}" />
                 <f:param name="codigoOS" value="null" />
@@ -13,7 +13,7 @@
             <div class="card-body">
                 <div class="table-responsive">
                     <h:dataTable class="table" value="#{cadastroClienteBean.listOrdens}" var="os"
-                        columnClasses="sem-style,sem-style, sem-style, sem-style, sem-style, sem-style, form-acao">
+                        columnClasses="sem-style,sem-style,sem-style,sem-style,sem-style,sem-style,form-acao">
                         <h:column>
                             <f:facet name="header">Número</f:facet>
                             <h:outputText value="#{os.id}" />
@@ -48,7 +48,8 @@
                                     <f:param name="codigoCliente" value="#{os.cliente.id}" />
                                 </h:link>
                                 <h:commandLink action="#{consultaOsBean.excluir}"
-                                    rendered="#{request.isUserInRole('ADMINISTRADOR')}" class="btn p-1">
+                                    rendered="#{request.isUserInRole('ADMINISTRADOR')}" class="btn p-1"
+                                    title="Excluir ordem de serviço">
                                     <i data-feather="trash"></i>
                                     <f:setPropertyActionListener value="#{os}"
                                         target="#{consultaClienteBean.osExcluir}" />

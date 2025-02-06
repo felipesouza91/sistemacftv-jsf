@@ -6,47 +6,56 @@
 
 	<ui:define name="conteudo">
 		<div class="container mt-3">
-
-			<h:form class="row align-items-end" id="formConsulta">
+			<h:form class="align-items-end" id="formConsulta">
 				<div class="container">
 					<h:messages showSummary="true" showDetail="false" role="alert"
 						styleClass="alert alert-danger alert-dismissible list-unstyled" errorClass="alert-danger"
 						infoClass="alert-info" />
 				</div>
 
-				<div class="col-12 mb-3">
-					<h:button value="Novo Cliente" outcome="CadastroCliente"
-						rendered="#{not request.isUserInRole('USUARIO')}" class="btn btn-success" />
+				<div class="row">
+					<div class="col-12 col-md-2 mb-3">
+						<h:button value="Novo Cliente" outcome="CadastroCliente"
+							rendered="#{not request.isUserInRole('USUARIO')}" class="btn btn-success container-fluid" />
+					</div>
 				</div>
-				<div class="col-12 col-md-2">
-					<label for="tipoPesquisa">Pesquisar por:</label>
-					<h:selectOneMenu value="#{consultaClienteBean.tipoPesquisa}" id="tipoPesquisa" class="form-select"
-						valueChangeListener="#{consultaClienteBean.modificaCampo}" immediate="true"
-						onchange="jsf.ajax.request(this, event, {execute: '@form', render:'formConsulta'} )">
-						<f:selectItem itemLabel="Todos" itemValue="0"></f:selectItem>
-						<f:selectItem itemLabel="Codigo Service" itemValue="6"></f:selectItem>
-						<f:selectItem itemLabel="Dominio" itemValue="1"></f:selectItem>
-						<f:selectItem itemLabel="Razão Social" itemValue="2"></f:selectItem>
-						<f:selectItem itemLabel="Nome Fantazia" itemValue="3"></f:selectItem>
-						<f:selectItem itemLabel="Bairro" itemValue="4"></f:selectItem>
-						<f:selectItem itemLabel="Endereço" itemValue="5"></f:selectItem>
-					</h:selectOneMenu>
+				<div class="row align-items-end justify-content-between">
+					<div class="col-12 col-md-2">
+						<label for="tipoPesquisa" class="form-label">Pesquisar por:</label>
+						<h:selectOneMenu value="#{consultaClienteBean.tipoPesquisa}" id="tipoPesquisa"
+							class="form-select" valueChangeListener="#{consultaClienteBean.modificaCampo}"
+							immediate="true"
+							onchange="jsf.ajax.request(this, event, {execute: '@form', render:'formConsulta'} )">
+							<f:selectItem itemLabel="Todos" itemValue="0"></f:selectItem>
+							<f:selectItem itemLabel="Codigo Service" itemValue="6"></f:selectItem>
+							<f:selectItem itemLabel="Dominio" itemValue="1"></f:selectItem>
+							<f:selectItem itemLabel="Razão Social" itemValue="2"></f:selectItem>
+							<f:selectItem itemLabel="Nome Fantazia" itemValue="3"></f:selectItem>
+							<f:selectItem itemLabel="Bairro" itemValue="4"></f:selectItem>
+							<f:selectItem itemLabel="Endereço" itemValue="5"></f:selectItem>
+						</h:selectOneMenu>
+					</div>
+					<h:panelGroup rendered="#{consultaClienteBean.edita}">
+						<div class="col-12 col-md mt-1">
+							<h:inputText class="form-control" id="descricao" size="40"
+								value="#{consultaClienteBean.descricaoPesquisa}">
+							</h:inputText>
+						</div>
+					</h:panelGroup>
+
+					<div class="col-12 col-md-2 mt-3">
+						<h:commandButton class="btn btn-primary container-fluid" value="Pesquisar"
+							action="#{consultaClienteBean.pesquisar}" />
+					</div>
 				</div>
-				<div class="col-12 col-md mt-1">
-					<h:inputText class="form-control" id="descricao" size="40"
-						value="#{consultaClienteBean.descricaoPesquisa}" rendered="#{consultaClienteBean.edita}">
-					</h:inputText>
-				</div>
-				<div class="col-12 col-md-2 mt-3">
-					<h:commandButton class="btn btn-primary" value="Pesquisar"
-						action="#{consultaClienteBean.pesquisar}" />
-				</div>
+
 			</h:form>
 
 			<div class="card mt-3">
 				<div class="card-body">
 					<div class="table-responsive">
-						<h:dataTable value="#{consultaClienteBean.listCliente}" var="cliente" class="table">
+						<h:dataTable value="#{consultaClienteBean.listCliente}" var="cliente" class="table"
+							columnClasses="sem-style,sem-style,sem-style,sem-style,sem-style,sem-style,sem-style,sem-style,form-acao">
 							<h:column>
 								<f:facet name="header">Codigo</f:facet>
 								<h:outputText value="#{cliente.id}" />
