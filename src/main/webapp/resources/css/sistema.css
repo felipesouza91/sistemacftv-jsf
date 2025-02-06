@@ -23,7 +23,8 @@ svg {
 }
 
 .form-acao {
-    width: 12% !important;
+    width: 10% !important;
+    text-align: center;
 }
 
 @media (min-width: 992px) {
@@ -35,7 +36,7 @@ svg {
         max-width: 400px !important;
     }
 
-    .custom-container-dvr {
+    .custom-container-dvr .custom-container-fechamento-os {
         max-width: 600px !important;
     }
 }
