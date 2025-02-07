@@ -1,7 +1,6 @@
 package com.felipe.model;
 
 import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,7 +17,8 @@ public class Usuario implements Serializable {
 
 	private String nomeUsuario;
 
-	@ColumnTransformer(write = "AES_ENCRYPT (?,'secret_key')", read = "AES_DECRYPT(senha,'secret_key')")
+	@ColumnTransformer(write = "AES_ENCRYPT(?,SHA2('password',512))",
+			read = "AES_DECRYPT(senha,SHA2('password',512))")
 	private String senha;
 
 	private String privilegio;

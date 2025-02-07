@@ -1,74 +1,88 @@
-<ui:composition template="/template/LayoutPadrao.xhtml" 
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
+<ui:composition template="/template/LayoutPadrao.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-	
-	
-	
+
+
+
 	<ui:define name="titulo">Consulta Clientes</ui:define>
-	
+
 	<ui:define name="conteudo">
-		<h:outputStylesheet library="css" name="consulta.css"/>
-		<h1>Consulta Usuarios</h1>
-		
-		<h:button value="Novo Usuário" outcome="CadastroUsuario"/>
-		<br/><br/>	
-		<h:form id="consultaUsuario">
-			
-			<h:panelGrid columns="2" id="panelBusca">
-				<h:outputLabel value="Pesquisa por:"></h:outputLabel>
-				<h:outputLabel/>
-				
-				<h:selectOneMenu  id="tipoPesquisa" value="#{consultaUsuarioBean.tipoPequisa}"
-					valueChangeListener="#{consultaUsuarioBean.modificaPesquisaDescricao}"  immediate="true"
-					onchange="jsf.ajax.request(this, event, {execute: '@form', render:'consultaUsuario:panelBusca'} )">
-					<f:selectItem itemLabel="Todos" itemValue="0"></f:selectItem>
-					<f:selectItem itemLabel="Nome Usuario" itemValue="1"></f:selectItem>
-					<f:selectItem itemLabel="Nome Funcionario" itemValue="2"></f:selectItem>
-					<f:selectItem itemLabel="Privilegio" itemValue="3"></f:selectItem>
-					
-				</h:selectOneMenu>
-				<h:panelGroup>
-					<h:inputText id="descricao" size="40" value="#{consultaUsuarioBean.descricao}"
-						rendered="#{consultaUsuarioBean.editar}">
-					</h:inputText>
-					<h:selectOneMenu value="#{consultaUsuarioBean.descricao}" rendered="#{consultaUsuarioBean.render}">
-						<f:selectItems value="#{consultaUsuarioBean.privilegioUsuario}" var="privilegio"
-								itemLabel="#{privilegio.descricao}" itemValue="#{privilegio}"/>
-					</h:selectOneMenu>
-					<h:commandButton value="Pesquisar" action="#{consultaUsuarioBean.buscar}"/>
-				</h:panelGroup>
-			</h:panelGrid>
-		
-		</h:form>
-		
-		<h:dataTable value="#{consultaUsuarioBean.listUsuario}" var="usuario" width="100%"
-				styleClass="grid" headerClass="cabecalho" rowClasses="cor-sim, cor-nao"
-				columnClasses="tipo, tipo, tipo,tipo">
-			
-			<h:column>
-				<f:facet name="header">ID</f:facet>
-				<h:outputText value="#{usuario.id}"/>
-			</h:column>
-		
-			<h:column>
-				<f:facet name="header">Nome</f:facet>
-				<h:outputText value="#{usuario.nome}"/>
-			</h:column>
-			
-			<h:column>
-				<f:facet name="header">Nome de Usuario</f:facet>
-				<h:outputText value="#{usuario.nomeUsuario}"/>
-			</h:column>
-		
-			<h:column>
-				<f:facet name="header">Privilegio</f:facet>
-				<h:outputText value="#{usuario.privilegio}"/>
-			</h:column>
-			
-		</h:dataTable>
+		<div class="container mt-3">
+			<h:form class="align-items-end" id="consultaUsuario">
+				<div class="row">
+					<div class="col">
+						<h:messages showSummary="true" showDetail="false" role="alert"
+							styleClass="alert alert-danger alert-dismissible list-unstyled" errorClass="alert-danger"
+							infoClass="alert-info" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12 col-md-2 mb-3">
+						<h:button value="Novo Usuário" outcome="CadastroUsuario"
+							rendered="#{ request.isUserInRole('ADMINISTRADOR')}" class="btn btn-success container-fluid" />
+					</div>
+				</div>
+				<div class="row align-items-end justify-content-between">
+					<div class="col-12 col-md-2">
+						<label for="tipoPesquisa" class="form-label">Pesquisar por:</label>
+						<h:selectOneMenu id="tipoPesquisa" value="#{consultaUsuarioBean.tipoPequisa}" class="form-select"
+							valueChangeListener="#{consultaUsuarioBean.modificaPesquisaDescricao}" immediate="true"
+							onchange="jsf.ajax.request(this, event, {execute: '@form', render:'consultaUsuario'} )">
+							<f:selectItem itemLabel="Todos" itemValue="0"></f:selectItem>
+							<f:selectItem itemLabel="Nome Usuario" itemValue="1"></f:selectItem>
+							<f:selectItem itemLabel="Nome Funcionario" itemValue="2"></f:selectItem>
+							<f:selectItem itemLabel="Privilegio" itemValue="3"></f:selectItem>
+						</h:selectOneMenu>
+					</div>
+					<h:panelGroup rendered="#{consultaUsuarioBean.render}">
+						<div class="col-12 col-md mt-1">
+							<h:inputText id="descricao" size="40" value="#{consultaUsuarioBean.descricao}"
+								rendered="#{consultaUsuarioBean.showTextInput}" class="form-control">
+							</h:inputText>
+							<h:selectOneMenu value="#{consultaUsuarioBean.descricao}" class="form-select"
+								rendered="#{consultaUsuarioBean.showSelectMenu}">
+								<f:selectItems value="#{consultaUsuarioBean.privilegioUsuario}" var="privilegio"
+									itemLabel="#{privilegio.descricao}" itemValue="#{privilegio}" />
+							</h:selectOneMenu>
+						</div>
+					</h:panelGroup>
+					<div class="col-12 col-md-2 mt-3">
+						<h:commandButton class="btn btn-primary container-fluid" value="Pesquisar"
+							action="#{consultaUsuarioBean.buscar}" />
+					</div>
+				</div>
+
+			</h:form>
+
+			<div class="card mt-3">
+				<div class="card-body">
+					<div class="table-responsive">
+						<h:dataTable value="#{consultaUsuarioBean.listUsuario}" var="usuario" class="table">
+							<h:column>
+								<f:facet name="header">ID</f:facet>
+								<h:outputText value="#{usuario.id}" />
+							</h:column>
+
+							<h:column>
+								<f:facet name="header">Nome</f:facet>
+								<h:outputText value="#{usuario.nome}" />
+							</h:column>
+
+							<h:column>
+								<f:facet name="header">Nome de Usuario</f:facet>
+								<h:outputText value="#{usuario.nomeUsuario}" />
+							</h:column>
+
+							<h:column>
+								<f:facet name="header">Privilegio</f:facet>
+								<h:outputText value="#{usuario.privilegio}" />
+							</h:column>
+						</h:dataTable>
+					</div>
+				</div>
+			</div>
+		</div>
 	</ui:define>
-	
-	
+
+
 </ui:composition>

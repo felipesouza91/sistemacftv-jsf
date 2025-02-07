@@ -2,11 +2,9 @@ package com.felipe.view.consulta;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ValueChangeEvent;
-
 import com.felipe.model.PrivilegioUsuario;
 import com.felipe.model.Usuario;
 import com.felipe.repository.UsuarioRepository;
@@ -21,7 +19,8 @@ public class ConsultaUsuarioBean {
 	private ArrayList<Usuario> listUsuario = new ArrayList<Usuario>();
 	private Integer tipoPequisa;
 	private String descricao;
-	private boolean editar = false;
+	private boolean showSelectMenu = false;
+	private boolean showTextInput = false;
 	private boolean render = false;
 
 	public PrivilegioUsuario[] getPrivilegioUsuario() {
@@ -38,13 +37,24 @@ public class ConsultaUsuarioBean {
 	public void modificaPesquisaDescricao(ValueChangeEvent event) {
 		Integer a = (Integer) event.getNewValue();
 
-		if(a.equals(3)) {
-			this.editar = false;
-			this.render = true;
-		} else {
-			this.editar = true;
-			this.render = false;
+		switch (a) {
+			case 3:
+				this.showSelectMenu = true;
+				this.showTextInput = false;
+				this.render = true;
+				break;
+			case 0:
+				this.showSelectMenu = false;
+				this.showTextInput = false;
+				this.render = false;
+				break;
+			default:
+				this.showSelectMenu = false;
+				this.showTextInput = true;
+				this.render = true;
+				break;
 		}
+
 	}
 
 	public List<Usuario> getListUsuario() {
@@ -67,8 +77,12 @@ public class ConsultaUsuarioBean {
 		this.descricao = descricao;
 	}
 
-	public boolean isEditar() {
-		return editar;
+	public boolean isShowTextInput() {
+		return showTextInput;
+	}
+
+	public boolean isShowSelectMenu() {
+		return showSelectMenu;
 	}
 
 	public boolean isRender() {
