@@ -51,8 +51,7 @@
                                     rendered="#{request.isUserInRole('ADMINISTRADOR')}" class="btn p-1"
                                     title="Excluir ordem de serviço">
                                     <i data-feather="trash"></i>
-                                    <f:setPropertyActionListener value="#{os}"
-                                        target="#{consultaClienteBean.osExcluir}" />
+                                    <f:setPropertyActionListener value="#{os}" target="#{consultaOsBean.osExcluir}" />
                                 </h:commandLink>
                                 <h:link class="btn p-1" outcome="FechamentoOs" title="Fechamento de Os"
                                     rendered="#{empty os.fechamento}">

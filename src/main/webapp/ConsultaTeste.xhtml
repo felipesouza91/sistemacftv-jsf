@@ -1,52 +1,54 @@
-<ui:composition	template="/template/LayoutPadrao.xhtml"
-	xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
+<ui:composition template="/template/LayoutPadrao.xhtml" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-	
+
 	<ui:define name="titulo">Consulta de Teste</ui:define>
-	
+
 	<ui:define name="conteudo">
-		<h:outputStylesheet library="css" name="consulta.css"/>
-		<h:outputStylesheet library="font-awesome" name="css/font-awesome.min.css"/>
-		
-		
-		<h:form>
-				<h1>Lista de Sistema Testados</h1>
-				<h:outputText value="Total de equipamentos testados: #{consultaTesteBean.listTeste.size().toString()}"/>
-					<h:dataTable value="#{consultaTesteBean.listTeste}" var="teste" width="100%"
-					rendered="#{not empty consultaTesteBean.listTeste}" styleClass="grid"
-					headerClass="cabecalho" rowClasses="cor-sim, cor-nao" 
-						columnClasses="tipo,tipo,tipo,tipo,tipo,tipo,tipo,tipo,tipo,tipo,tipo">
-					
-					<h:column>
-						<f:facet name="header">Nome Fantazia</f:facet>
-						<h:outputText value="#{teste.dvr.cliente.fantazia}" />
-					</h:column>
-					<h:column>
-						<f:facet name="header">Modelo DVR</f:facet>
-						<h:outputText value="#{teste.dvr.fabricante} - #{teste.dvr.modeloFabricante}" />
-					</h:column>
-					<h:column>
-						<f:facet name="header">Data do teste</f:facet>
-						<h:outputText value="#{empty teste.dataTeste ? 'Nao Possui' : teste.dataTeste}" />
-					</h:column>
-					<h:column>
-						<f:facet name="header">Status</f:facet>
-						<h:outputText value="#{empty teste.status ? 'Nao Possui' : teste.status }" />
-					</h:column>
-					<h:column>
-						<f:facet name="header">Tamanho HD</f:facet>
-						<h:outputText value="#{empty teste.hd ? 'Nao Possui' : teste.hd}" />
-					</h:column>
-					<h:column>
-						<f:facet name="header">Tempo de Gravação</f:facet>
-						<h:outputText value="#{empty teste.qtdGravacao ? 'Nao Possui' : teste.qtdGravacao }" />
-					</h:column>
-				</h:dataTable>
-			
-		</h:form>
-	
+		<div class="container mt-3">
+			<div class="card">
+				<div class="card-header">
+					Lista de Sistema Testados
+				</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<h:form>
+							<h:dataTable value="#{consultaTesteBean.listTeste}" var="teste" class="table">
+								<h:column>
+									<f:facet name="header">Nome Fantazia</f:facet>
+									<h:outputText value="#{teste.dvr.cliente.fantazia}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">Modelo DVR</f:facet>
+									<h:outputText value="#{teste.dvr.fabricante} - #{teste.dvr.modeloFabricante}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">Data do teste</f:facet>
+									<h:outputText value="#{empty teste.dataTeste ? 'Nao Possui' : teste.dataTeste}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">Status</f:facet>
+									<h:outputText value="#{empty teste.status ? 'Nao Possui' : teste.status }" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">Tamanho HD</f:facet>
+									<h:outputText value="#{empty teste.hd ? 'Nao Possui' : teste.hd}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">Tempo de Gravação</f:facet>
+									<h:outputText value="#{empty teste.qtdGravacao ? 'Nao Possui' : teste.qtdGravacao }" />
+								</h:column>
+							</h:dataTable>
+
+						</h:form>
+					</div>
+				</div>
+				<div class="card-footer text-body-secondary">
+					<h:outputText value="Total de equipamentos testados: #{consultaTesteBean.listTeste.size().toString()}" />
+				</div>
+			</div>
+		</div>
+
 	</ui:define>
 
 </ui:composition>
