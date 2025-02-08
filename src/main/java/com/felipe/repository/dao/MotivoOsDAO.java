@@ -1,13 +1,11 @@
 package com.felipe.repository.dao;
 
 import java.util.List;
-
-import com.felipe.model.MotivoOs;
-import com.felipe.repository.MontivoOsRepository;
-
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import com.felipe.model.MotivoOs;
+import com.felipe.repository.MontivoOsRepository;
 
 public class MotivoOsDAO implements MontivoOsRepository {
 
@@ -20,7 +18,8 @@ public class MotivoOsDAO implements MontivoOsRepository {
 	@Override
 	public MotivoOs getPorCodigo(Integer id) {
 
-		return (MotivoOs) session.createCriteria(MotivoOs.class).add(Restrictions.eq("id", id)).uniqueResult();
+		return (MotivoOs) session.createCriteria(MotivoOs.class).add(Restrictions.eq("id", id))
+				.uniqueResult();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -38,8 +37,8 @@ public class MotivoOsDAO implements MontivoOsRepository {
 
 	@Override
 	public void excluir(MotivoOs c) {
-
-		session.delete(c);
+		MotivoOs motivoos = getPorCodigo(c.getId());
+		session.delete(motivoos);
 	}
 
 }
