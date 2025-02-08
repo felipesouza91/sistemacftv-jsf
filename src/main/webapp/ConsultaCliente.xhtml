@@ -6,113 +6,115 @@
 
 	<ui:define name="conteudo">
 		<div class="container mt-3">
-
-			<h:form class="row align-items-end" id="formConsulta">
-				<div class="container">
-					<h:messages showSummary="true" showDetail="false" role="alert"
-						styleClass="alert alert-danger alert-dismissible list-unstyled" errorClass="alert-danger"
-						infoClass="alert-info" />
+			<h:form class="align-items-end" id="formConsulta">
+				<div class="row">
+					<div class="col">
+						<h:messages showDetail="false" showSummary="true" styleClass="list-unstyled" errorClass="alert alert-danger"
+							infoClass="alert alert-success" />
+					</div>
 				</div>
 
-				<div class="col-12 mb-3">
-					<h:button value="Novo Cliente" outcome="CadastroCliente"
-						rendered="#{not request.isUserInRole('USUARIO')}" class="btn btn-success" />
+				<div class="row">
+					<div class="col-12 col-md-2 mb-3">
+						<h:button value="Novo Cliente" outcome="CadastroCliente" rendered="#{not request.isUserInRole('USUARIO')}"
+							class="btn btn-success container-fluid" />
+					</div>
 				</div>
-				<div class="col-12 col-md-2">
-					<label for="tipoPesquisa">Pesquisar por:</label>
-					<h:selectOneMenu value="#{consultaClienteBean.tipoPesquisa}" id="tipoPesquisa" class="form-select"
-						valueChangeListener="#{consultaClienteBean.modificaCampo}" immediate="true"
-						onchange="jsf.ajax.request(this, event, {execute: '@form', render:'formConsulta'} )">
-						<f:selectItem itemLabel="Todos" itemValue="0"></f:selectItem>
-						<f:selectItem itemLabel="Codigo Service" itemValue="6"></f:selectItem>
-						<f:selectItem itemLabel="Dominio" itemValue="1"></f:selectItem>
-						<f:selectItem itemLabel="Razão Social" itemValue="2"></f:selectItem>
-						<f:selectItem itemLabel="Nome Fantazia" itemValue="3"></f:selectItem>
-						<f:selectItem itemLabel="Bairro" itemValue="4"></f:selectItem>
-						<f:selectItem itemLabel="Endereço" itemValue="5"></f:selectItem>
-					</h:selectOneMenu>
+				<div class="row align-items-end justify-content-between">
+					<div class="col-12 col-md-2">
+						<label for="tipoPesquisa" class="form-label">Pesquisar por:</label>
+						<h:selectOneMenu value="#{consultaClienteBean.tipoPesquisa}" id="tipoPesquisa" class="form-select"
+							valueChangeListener="#{consultaClienteBean.modificaCampo}" immediate="true"
+							onchange="jsf.ajax.request(this, event, {execute: '@form', render:'formConsulta'} )">
+							<f:selectItem itemLabel="Todos" itemValue="0"></f:selectItem>
+							<f:selectItem itemLabel="Codigo Service" itemValue="6"></f:selectItem>
+							<f:selectItem itemLabel="Dominio" itemValue="1"></f:selectItem>
+							<f:selectItem itemLabel="Razão Social" itemValue="2"></f:selectItem>
+							<f:selectItem itemLabel="Nome Fantazia" itemValue="3"></f:selectItem>
+							<f:selectItem itemLabel="Bairro" itemValue="4"></f:selectItem>
+							<f:selectItem itemLabel="Endereço" itemValue="5"></f:selectItem>
+						</h:selectOneMenu>
+					</div>
+					<h:panelGroup rendered="#{consultaClienteBean.edita}">
+						<div class="col-12 col-md mt-1">
+							<h:inputText class="form-control" id="descricao" size="40"
+								value="#{consultaClienteBean.descricaoPesquisa}">
+							</h:inputText>
+						</div>
+					</h:panelGroup>
+
+					<div class="col-12 col-md-2 mt-3">
+						<h:commandButton class="btn btn-primary container-fluid" value="Pesquisar"
+							action="#{consultaClienteBean.pesquisar}" />
+					</div>
 				</div>
-				<div class="col-12 col-md mt-1">
-					<h:inputText class="form-control" id="descricao" size="40"
-						value="#{consultaClienteBean.descricaoPesquisa}" rendered="#{consultaClienteBean.edita}">
-					</h:inputText>
-				</div>
-				<div class="col-12 col-md-2 mt-3">
-					<h:commandButton class="btn btn-primary" value="Pesquisar"
-						action="#{consultaClienteBean.pesquisar}" />
-				</div>
+
 			</h:form>
 
 			<div class="card mt-3">
 				<div class="card-body">
-					<h:dataTable value="#{consultaClienteBean.listCliente}" var="cliente" class="table">
-						<h:column>
-							<f:facet name="header">Codigo</f:facet>
-							<h:outputText value="#{cliente.id}" />
-						</h:column>
-						<h:column>
-							<f:facet name="header">Codigo Serivce</f:facet>
-							<h:outputText value="#{cliente.codigoService}" />
-						</h:column>
+					<div class="table-responsive">
+						<h:dataTable value="#{consultaClienteBean.listCliente}" var="cliente" class="table"
+							columnClasses="sem-style,sem-style,sem-style,sem-style,sem-style,sem-style,sem-style,sem-style,form-acao">
+							<h:column>
+								<f:facet name="header">Codigo</f:facet>
+								<h:outputText value="#{cliente.id}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">Razão Social</f:facet>
+								<h:outputText value="#{cliente.razaoSocial}" />
+							</h:column>
 
+							<h:column>
+								<f:facet name="header">Nome Fantazia</f:facet>
+								<h:outputText value="#{cliente.fantazia}" />
+							</h:column>
 
-						<h:column>
-							<f:facet name="header">Razão Social</f:facet>
-							<h:outputText value="#{cliente.razaoSocial}" />
-						</h:column>
+							<h:column>
+								<f:facet name="header">Telefone 1</f:facet>
+								<h:outputText value="#{cliente.telefone1}" />
+							</h:column>
 
-						<h:column>
-							<f:facet name="header">Nome Fantazia</f:facet>
-							<h:outputText value="#{cliente.fantazia}" />
-						</h:column>
+							<h:column>
+								<f:facet name="header">Telefone 2</f:facet>
+								<h:outputText value="#{cliente.telefone2}" />
+							</h:column>
 
-						<h:column>
-							<f:facet name="header">Telefone 1</f:facet>
-							<h:outputText value="#{cliente.telefone1}" />
-						</h:column>
+							<h:column>
+								<f:facet name="header">Dominio</f:facet>
+								<h:outputText value="#{cliente.dominio}" />
 
-						<h:column>
-							<f:facet name="header">Telefone 2</f:facet>
-							<h:outputText value="#{cliente.telefone2}" />
-						</h:column>
+							</h:column>
 
-						<h:column>
-							<f:facet name="header">Dominio</f:facet>
-							<h:outputText value="#{cliente.dominio}" />
+							<h:column>
+								<f:facet name="header">Endereço</f:facet>
+								<h:outputText value="#{cliente.enderecoFormatado}" />
+							</h:column>
 
-						</h:column>
-
-						<h:column>
-							<f:facet name="header">Endereço</f:facet>
-							<h:outputText value="#{cliente.enderecoFormatado}" />
-						</h:column>
-
-						<h:column>
-							<f:facet name="header">Bairro</f:facet>
-							<h:outputText value="#{cliente.bairro.nome}" />
-						</h:column>
-						<h:column>
-							<f:facet name="header">Ações</f:facet>
-							<h:form>
-								<h:link outcome="CadastroCliente" class="btn p-1">
-									<i data-feather="edit"></i>
-									<f:param name="codigo" value="#{cliente.id}" />
-								</h:link>
-								<h:link outcome="CadastroOrdemServico" class="btn p-1">
-									<i data-feather="tool"></i>
-									<f:param name="codigoCliente" value="#{cliente.id}" />
-								</h:link>
-								<h:commandLink action="#{consultaClienteBean.excluir}"
-									rendered="#{request.isUserInRole('ADMINISTRADOR')}" class="btn p-1">
-									<i data-feather="edit"></i>
-									<f:setPropertyActionListener value="#{cliente}"
-										target="#{consultaClienteBean.clienteExcluir}" />
-								</h:commandLink>
-							</h:form>
-
-						</h:column>
-
-					</h:dataTable>
+							<h:column>
+								<f:facet name="header">Bairro</f:facet>
+								<h:outputText value="#{cliente.bairro.nome}" />
+							</h:column>
+							<h:column>
+								<f:facet name="header">Ações</f:facet>
+								<h:form>
+									<h:link outcome="CadastroCliente" class="btn p-1">
+										<i data-feather="edit"></i>
+										<f:param name="codigo" value="#{cliente.id}" />
+									</h:link>
+									<h:link outcome="CadastroOrdemServico" class="btn p-1">
+										<i data-feather="tool"></i>
+										<f:param name="codigoCliente" value="#{cliente.id}" />
+									</h:link>
+									<h:commandLink action="#{consultaClienteBean.excluir}"
+										rendered="#{request.isUserInRole('ADMINISTRADOR')}" class="btn p-1">
+										<i data-feather="trash"></i>
+										<f:setPropertyActionListener value="#{cliente}" target="#{consultaClienteBean.clienteExcluir}" />
+									</h:commandLink>
+								</h:form>
+							</h:column>
+						</h:dataTable>
+					</div>
 				</div>
 			</div>
 		</div>

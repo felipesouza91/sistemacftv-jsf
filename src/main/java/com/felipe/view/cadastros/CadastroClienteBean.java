@@ -11,9 +11,11 @@ import com.felipe.model.Bairro;
 import com.felipe.model.Cidade;
 import com.felipe.model.Cliente;
 import com.felipe.model.Dvr;
+import com.felipe.model.OrdemServico;
 import com.felipe.repository.BairroRepository;
 import com.felipe.repository.CidadeRepository;
 import com.felipe.repository.ClienteRepository;
+import com.felipe.repository.OrdemServicoRepository;
 import com.felipe.util.FacesUtil;
 import com.felipe.util.Repositorios;
 
@@ -28,6 +30,8 @@ public class CadastroClienteBean implements Serializable {
 	private ArrayList<Bairro> listBairro = new ArrayList<Bairro>();
 	private List<Dvr> listDvr = new ArrayList<Dvr>();
 	private List<Cidade> listCidade = new ArrayList<Cidade>();
+	private List<OrdemServico> listOrdens = new ArrayList<OrdemServico>();
+
 
 	@SuppressWarnings("unchecked")
 	@PostConstruct
@@ -51,6 +55,8 @@ public class CadastroClienteBean implements Serializable {
 			this.listBairro.add(this.cliente.getBairro());
 			cidade = this.cliente.getBairro().getCidade();
 			this.listDvr.addAll(this.cliente.getListDvr());
+			listarOrdens();
+
 		}
 
 	}
@@ -88,6 +94,10 @@ public class CadastroClienteBean implements Serializable {
 		return listCidade;
 	}
 
+	public List<OrdemServico> getListOrdens() {
+		return listOrdens;
+	}
+
 	public Cidade getCidade() {
 		return cidade;
 	}
@@ -100,4 +110,13 @@ public class CadastroClienteBean implements Serializable {
 		this.cliente = new Cliente();
 	}
 
+
+
+	public void listarOrdens() {
+		if (cliente != null) {
+			OrdemServicoRepository ordemDao = repositorio.getOs();
+			listOrdens = ordemDao.getTodosPorCliente(cliente);
+		}
+
+	}
 }

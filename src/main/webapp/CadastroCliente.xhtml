@@ -1,198 +1,52 @@
 <ui:composition template="/template/LayoutPadrao.xhtml" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+  xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 
 
-	<ui:define name="titulo">Consulta Usuarios</ui:define>
-	<f:metadata>
-		<f:viewParam name="codigo" value="#{cadastroClienteBean.cliente}" />
-	</f:metadata>
+  <ui:define name="titulo">Consulta Usuarios</ui:define>
+  <f:metadata>
+    <f:viewParam name="codigo" value="#{cadastroClienteBean.cliente}" />
+  </f:metadata>
 
-	<ui:define name="conteudo">
-		<div class="container mt-3">
-			<ul class="nav nav-tabs" id="myTab" role="tablist">
-				<li class="nav-item" role="presentation">
-					<button class="nav-link active" id="dados-tab" data-bs-toggle="tab" data-bs-target="#dados-tab-pane"
-						type="button" role="tab" aria-controls="dados-tab-pane" aria-selected="true">Dados</button>
-				</li>
-				<li class="nav-item" role="presentation">
-					<button class="nav-link" id="equipamento-tab" data-bs-toggle="tab"
-						data-bs-target="#equipamento-tab-pane" type="button" role="tab"
-						aria-controls="equipamento-tab-pane" aria-selected="false">Equipamentos</button>
-				</li>
-			</ul>
-			<div class="tab-content" id="myTabContent">
-				<div class="tab-pane fade show active" id="dados-tab-pane" role="tabpanel" aria-labelledby="dados-tab"
-					tabindex="0">
-					<div class="container mt-3">
-						<h:form class="col custom-form" id="formCadastroCliente">
-							<h:messages showSummary="true" showDetail="false" styleClass="sem_estilo_ul"
-								errorClass="alert alert-danger" infoClass="alert alert-success" />
-							<div class="col-3">
-								<label for="codigo" class="form-label">Codigo</label>
-								<h:inputText class="form-control" id="codigo" value="#{cadastroClienteBean.cliente.id}"
-									disabled="true" />
-							</div>
-							<div class="col mt-1">
-								<label for="razaoSocial" class="form-label">Razão Social</label>
-								<h:inputText size="50" value="#{cadastroClienteBean.cliente.razaoSocial}"
-									id="razaoSocial" label="Razão Social" required="true" class="form-control" />
-							</div>
-							<div class="col mt-1">
-								<label for="nomeFantazia" class="form-label">Nome fantasia</label>
-								<h:inputText size="50" value="#{cadastroClienteBean.cliente.fantazia}" id="nomeFantazia"
-									label="Nome Fantazia" required="true" class="form-control" />
-							</div>
-							<div class="row">
-								<div class="col mt-1">
-									<label for="tel1" class="form-label">Telefone 1</label>
-									<h:inputText size="11" maxlength="11"
-										value="#{cadastroClienteBean.cliente.telefone1}" id="tel1" label="Telefone 1"
-										required="true" class="form-control">
-										<f:passThroughAttribute name="placeholder" value="(21) 12345-6789" />
-									</h:inputText>
-								</div>
-								<div class="col mt-1">
-									<label for="tel2" class="form-label">Telefone 2</label>
-									<h:inputText size="11" maxlength="11" class="form-control"
-										value="#{cadastroClienteBean.cliente.telefone2}" id="tel2" label="Telefone 2">
-										<f:passThroughAttribute name="placeholder" value="(21) 12345-6789" />
-									</h:inputText>
-								</div>
-							</div>
-							<div class="col mt-1">
-								<label for="dominio" class="form-label">Dominio</label>
-								<h:inputText size="50" value="#{cadastroClienteBean.cliente.dominio}" id="dominio"
-									label="Dominio" required="true" class="form-control" />
-							</div>
-							<h2 class="mt-3">Endereço</h2>
-							<div class="row">
-								<div class="col col-md-8">
-									<label for="rua" class="form-label">Rua</label>
-									<h:inputText size="27" value="#{cadastroClienteBean.cliente.rua}" id="rua"
-										label="Rua" required="true" class="form-control" />
-								</div>
-								<div class="col mt-1">
-									<label for="numeroRua" class="form-label">Número</label>
-									<h:inputText size="9" value="#{cadastroClienteBean.cliente.numero}" id="numeroRua"
-										label="Número" required="true" class="form-control" />
-								</div>
-							</div>
-							<div class="row mt-1">
-								<div class="col mt-1">
-									<label for="comp" class="form-label">Complemento</label>
-									<h:inputText size="50" value="#{cadastroClienteBean.cliente.complemento}" id="comp"
-										label="Complemento" required="true" class="form-control" />
-								</div>
-								<div class="col mt-1">
-									<label for="ref" class="form-label">Referencia</label>
-									<h:inputText size="50" value="#{cadastroClienteBean.cliente.referencia}" id="ref"
-										label="Referencia" class="form-control" />
-								</div>
-							</div>
-							<div class="row mt-1">
-								<div class="col">
-									<label for="cidade">Cidade</label>
-									<h:selectOneMenu id="cidade" label="Cidade" value="#{cadastroClienteBean.cidade}"
-										class="form-select">
-										<f:selectItem itemLabel="Selecione" class="form-select" />
-										<f:selectItems value="#{cadastroClienteBean.listCidade}" var="cidade"
-											itemValue="#{cidade}" itemLabel="#{cidade.nome}" />
-									</h:selectOneMenu>
-								</div>
-								<div class="col">
-									<label for="inputEmail4">Bairro</label>
-									<h:selectOneMenu value="#{cadastroClienteBean.cliente.bairro}" id="bairro"
-										label="Bairro" required="true" class="form-select">
-										<f:selectItem itemLabel="Selecione" />
-										<f:selectItems var="bairro" value="#{cadastroClienteBean.listBairro}"
-											itemLabel="#{bairro.nome}" itemValue="#{bairro}" />
-									</h:selectOneMenu>
-								</div>
-							</div>
-							<div class="row mt-4">
-								<div class="col-3">
-									<h:commandButton class="btn btn-success container-fluid" value="Salvar"
-										action="#{cadastroClienteBean.salvarCliente}" />
-								</div>
-								<div class="col-3">
-									<h:button class="btn btn-secondary container-fluid" value="Limpar">
-										<f:passThroughAttribute name="type" value="reset" />
-									</h:button>
-								</div>
-
-							</div>
-						</h:form>
-					</div>
-				</div>
-				<div class="tab-pane fade" id="equipamento-tab-pane" role="tabpanel" aria-labelledby="equipamento-tab"
-					tabindex="0">
-					<div>
-
-					</div>
-					
-					<h:dataTable value="#{cadastroClienteBean.listDvr}" var="dvr">
-						<h:column>
-							<f:facet name="header">Codigo</f:facet>
-							<h:outputText value="#{dvr.id}" />
-						</h:column>
-						<h:column>
-							<f:facet name="header">Modelo</f:facet>
-							<h:outputText value="#{dvr.fabricante} - #{dvr.modeloFabricante}" />
-						</h:column>
-
-						<h:column>
-							<f:facet name="header">Porta HTTP</f:facet>
-							<h:outputText value="#{dvr.portaHttp}" />
-						</h:column>
-						<h:column>
-							<f:facet name="header">Porta Serviço</f:facet>
-							<h:outputText value="#{dvr.portaServico}" />
-						</h:column>
-						<h:column>
-							<f:facet name="header">Ip</f:facet>
-							<h:outputText value="#{dvr.ip}" />
-						</h:column>
-						<h:column>
-							<f:facet name="header">Mascara Sub-Rede</f:facet>
-							<h:outputText value="#{dvr.mascara}" />
-						</h:column>
-						<h:column>
-							<f:facet name="header">Gateway</f:facet>
-							<h:outputText value="#{dvr.gateway}" />
-						</h:column>
-						<h:column>
-							<f:facet name="header">DNS Principal</f:facet>
-							<h:outputText value="#{dvr.dnsPrincipal}" />
-						</h:column>
-						<h:column>
-							<f:facet name="header">DNS Alternativo</f:facet>
-							<h:outputText value="#{dvr.dnsAlternativo}" />
-						</h:column>
-						<h:column>
-							<f:facet name="header">Numero de Série</f:facet>
-							<h:outputText value="#{dvr.numeroSerie}" />
-						</h:column>
-						<h:column>
-							<f:facet name="header">Dominio para acesso</f:facet>
-							<h:outputLink value="http://#{dvr.cliente.dominio}:#{dvr.portaHttp}"
-								target="http://#{dvr.cliente.dominio}:#{dvr.portaHttp}">Link para acesso</h:outputLink>
-						</h:column>
-
-						<h:column>
-							<h:link outcome="CadastroSistemaDeCameras">
-								<h:graphicImage value="/imagens/editar.png" />
-								<f:param name="codigoDvr" value="#{dvr.id}" />
-								<f:param name="codigoCliente" value="#{dvr.cliente.id}" />
-							</h:link>
-						</h:column>
-					</h:dataTable>
-
-				</div>
-
-			</div>
-		</div>
-	</ui:define>
+  <ui:define name="conteudo">
+    <div class="container mt-3">
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="dados-tab" data-bs-toggle="tab" data-bs-target="#dados-tab-pane"
+            type="button" role="tab" aria-controls="dados-tab-pane" aria-selected="true">Dados</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="equipamento-tab" data-bs-toggle="tab" data-bs-target="#equipamento-tab-pane"
+            type="button" role="tab" aria-controls="equipamento-tab-pane" aria-selected="false">Equipamentos</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="ordem-servico-tab" data-bs-toggle="tab" data-bs-target="#ordem-servico-tab-pane"
+            type="button" role="tab" aria-controls="ordem-servico-tab-pane" aria-selected="false">Ordem de
+            Serviço</button>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="dados-tab-pane" role="tabpanel" aria-labelledby="dados-tab"
+          tabindex="0">
+          <ui:insert name="dados">
+            <ui:include src="/template/fragments/DadosClientFragment.xhtml" />
+          </ui:insert>
+        </div>
+        <div class="tab-pane fade" id="equipamento-tab-pane" role="tabpanel" aria-labelledby="equipamento-tab"
+          tabindex="1">
+          <ui:insert name="dvr">
+            <ui:include src="/template/fragments/DadosClientDvrFragment.xhtml" />
+          </ui:insert>
+        </div>
+        <div class="tab-pane fade" id="ordem-servico-tab-pane" role="tabpanel" aria-labelledby="ordem-servico-tab"
+          tabindex="2">
+          <ui:insert name="dvr">
+            <ui:include src="/template/fragments/DadosClientOrdemsFragment.xhtml" />
+          </ui:insert>
+        </div>
+      </div>
+    </div>
+  </ui:define>
 
 </ui:composition>

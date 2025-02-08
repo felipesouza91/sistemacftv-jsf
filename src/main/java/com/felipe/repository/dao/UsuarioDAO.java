@@ -1,13 +1,11 @@
 package com.felipe.repository.dao;
 
 import java.util.List;
-
-import com.felipe.model.Usuario;
-import com.felipe.repository.UsuarioRepository;
-
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
+import com.felipe.model.Usuario;
+import com.felipe.repository.UsuarioRepository;
 
 public class UsuarioDAO implements UsuarioRepository {
 
@@ -20,7 +18,8 @@ public class UsuarioDAO implements UsuarioRepository {
 	@Override
 	public Usuario getPorCodigo(Integer id) {
 
-		return (Usuario) session.createCriteria(Usuario.class).add(Restrictions.eq("id", id)).uniqueResult();
+		return (Usuario) session.createCriteria(Usuario.class).add(Restrictions.eq("id", id))
+				.uniqueResult();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -62,7 +61,7 @@ public class UsuarioDAO implements UsuarioRepository {
 			}
 			case 3: {
 				return session.createCriteria(Usuario.class)
-						.add(Restrictions.ilike("prioridade", descricaoFiltro, MatchMode.ANYWHERE)).list();
+						.add(Restrictions.ilike("privilegio", descricaoFiltro, MatchMode.ANYWHERE)).list();
 			}
 
 			default: {

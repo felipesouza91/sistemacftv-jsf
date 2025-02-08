@@ -1,3 +1,10 @@
+*,
+body,
+main,
+form {
+    font-size: 14px !important;
+}
+
 body {
     height: 100vh;
 }
@@ -13,4 +20,23 @@ svg {
 
 .sem_estilo_ul {
     list-style-type: none;
+}
+
+.form-acao {
+    width: 10% !important;
+    text-align: center;
+}
+
+@media (min-width: 992px) {
+    .custom-container {
+        max-width: 800px !important;
+    }
+
+    .custom-container-cadastra-teste {
+        max-width: 400px !important;
+    }
+
+    .custom-container-dvr .custom-container-fechamento-os {
+        max-width: 600px !important;
+    }
 }
